@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Info", "Info", "{06AEFC77-9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloggy", "src\Cloggy\Cloggy.csproj", "{0B5B80FC-5AA9-418C-9053-4F229A5F842A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloggy.Example", "src\Cloggy.Example\Cloggy.Example.csproj", "{22ACC7B5-90EE-485F-9B83-E0BD0C6D6340}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{0B5B80FC-5AA9-418C-9053-4F229A5F842A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B5B80FC-5AA9-418C-9053-4F229A5F842A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B5B80FC-5AA9-418C-9053-4F229A5F842A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22ACC7B5-90EE-485F-9B83-E0BD0C6D6340}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22ACC7B5-90EE-485F-9B83-E0BD0C6D6340}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22ACC7B5-90EE-485F-9B83-E0BD0C6D6340}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22ACC7B5-90EE-485F-9B83-E0BD0C6D6340}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
