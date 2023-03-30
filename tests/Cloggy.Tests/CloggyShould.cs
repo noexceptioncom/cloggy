@@ -17,9 +17,9 @@ public class CloggyShould
     [Test]
     public void LogAnEntryInConsole()
     {
-        logger.Log("");
+        logger.Log(string.Empty);
 
-        console.Received().WriteLine("");
+        console.Received().WriteLine(string.Empty);
     }
     
     [Test]
@@ -35,6 +35,6 @@ public class CloggyShould
     {
         logger.Log(null);
 
-        console.Received().WriteLine("");
+        console.Received().WriteLine(string.Empty);
     }
 }

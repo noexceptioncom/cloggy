@@ -9,8 +9,8 @@ public class Logger
         this.console = console;
     }
 
-    public void Log(string message)
+    public void Log(string? message)
     {
-        console.WriteLine(message ?? "");
+        console.WriteLine(message ?? string.Empty);
     }
 }
