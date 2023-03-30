@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloggy.Tests", "tests\Cloggy.Tests\Cloggy.Tests.csproj", "{2AE51B54-D8DA-4FC6-B1C9-1EEBA47D6AF0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00-Info", "00-Info", "{06AEFC77-9B9F-4861-A774-EC78096A2F68}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2AE51B54-D8DA-4FC6-B1C9-1EEBA47D6AF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AE51B54-D8DA-4FC6-B1C9-1EEBA47D6AF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AE51B54-D8DA-4FC6-B1C9-1EEBA47D6AF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AE51B54-D8DA-4FC6-B1C9-1EEBA47D6AF0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
