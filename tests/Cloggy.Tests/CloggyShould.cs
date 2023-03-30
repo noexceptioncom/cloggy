@@ -4,12 +4,19 @@ namespace Cloggy.Tests;
 
 public class CloggyShould
 {
+    private IConsole console;
+    private Logger logger;
+
+    [SetUp]
+    public void SetUp()
+    {
+        console = Substitute.For<IConsole>();
+        logger = new Logger(console);
+    }
+
     [Test]
     public void LogAnEntryInConsole()
     {
-        var console = Substitute.For<IConsole>();
-        var logger = new Logger(console);
-
         logger.Log("");
 
         console.Received().WriteLine("");
@@ -18,9 +25,6 @@ public class CloggyShould
     [Test]
     public void LogAnotherWordInConsole()
     {
-        var console = Substitute.For<IConsole>();
-        var logger = new Logger(console);
-
         logger.Log("juanvi");
 
         console.Received().WriteLine("juanvi");
@@ -29,9 +33,6 @@ public class CloggyShould
     [Test]
     public void LogEmptyWhenPassingNullMessage()
     {
-        var console = Substitute.For<IConsole>();
-        var logger = new Logger(console);
-
         logger.Log(null);
 
         console.Received().WriteLine("");
