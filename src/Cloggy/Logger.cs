@@ -11,6 +11,6 @@ public class Logger
 
     public void Log(string message)
     {
-        console.WriteLine(message);
+        console.WriteLine(message ?? "");
     }
 }

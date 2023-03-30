@@ -25,4 +25,15 @@ public class CloggyShould
 
         console.Received().WriteLine("juanvi");
     }
+    
+    [Test]
+    public void LogEmptyWhenPassingNullMessage()
+    {
+        var console = Substitute.For<IConsole>();
+        var logger = new Logger(console);
+
+        logger.Log(null);
+
+        console.Received().WriteLine("");
+    }
 }
