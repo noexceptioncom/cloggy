@@ -11,7 +11,7 @@ public class CloggyShould
     public void SetUp()
     {
         console = Substitute.For<IConsole>();
-        logger = new Logger(console);
+        logger = new Logger(console, false);
     }
 
     [Test]
@@ -36,5 +36,15 @@ public class CloggyShould
         logger.Log(null);
 
         console.Received().WriteLine(string.Empty);
+    }
+    
+    [Test]
+    public void LogDateTimeWithEveryMessage()
+    {
+        logger = new Logger(console, true);
+        
+        logger.Log("hola mundo");
+
+        console.Received().WriteLine("[2023-03-30T09:00:06] hola mundo");
     }
 }
