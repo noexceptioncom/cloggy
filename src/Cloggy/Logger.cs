@@ -2,13 +2,15 @@
 
 public class Logger
 {
+    private readonly IConsole console;
+
     public Logger(IConsole console)
     {
-        throw new NotImplementedException();
+        this.console = console;
     }
 
     public void Log(string empty)
     {
-        throw new NotImplementedException();
+        console.WriteLine("");
     }
 }
