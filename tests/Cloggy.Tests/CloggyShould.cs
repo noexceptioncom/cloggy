@@ -1,15 +1,17 @@
+using NSubstitute;
+
 namespace Cloggy.Tests;
 
 public class CloggyShould
 {
-    [SetUp]
-    public void Setup()
-    {
-    }
-
     [Test]
-    public void Test1()
+    public void LogAnEntryInConsole()
     {
-        Assert.Pass();
+        IConsole console = Substitute.For<IConsole>();
+        Logger logger = new Logger(console);
+        
+        logger.Log("");
+        
+        console.Received().WriteLine("");
     }
 }
