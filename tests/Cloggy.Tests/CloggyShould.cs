@@ -1,6 +1,6 @@
 namespace Cloggy.Tests;
 
-public class Tests
+public class CloggyShould
 {
     [SetUp]
     public void Setup()
