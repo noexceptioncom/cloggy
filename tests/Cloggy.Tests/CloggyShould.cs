@@ -47,4 +47,14 @@ public class CloggyShould
 
         console.Received().WriteLine("[2023-03-30T09:00:06] hola mundo");
     }
+    
+    [Test]
+    public void LogDateTimeWithEveryMessageAtNight()
+    {
+        logger = new Logger(console, true);
+        
+        logger.Log("hola mundo");
+
+        console.Received().WriteLine("[2023-03-30T21:30:06] hola mundo");
+    }
 }
