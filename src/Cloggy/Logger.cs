@@ -17,7 +17,7 @@ public class Logger
     {
         if (includeDateTime)
         {
-            message = $"[{_dateTimeProvider.Now().ToString("O")}] {message}";
+            message = $"[{_dateTimeProvider.Now().ToString("s")}] {message}";
         }
         
         console.WriteLine(message ?? string.Empty);

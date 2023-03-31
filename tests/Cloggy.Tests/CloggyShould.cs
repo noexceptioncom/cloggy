@@ -47,7 +47,7 @@ public class CloggyShould
         var expectedTime = _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T09:00:06"));
         logger.Log("hola mundo");
 
-        console.Received().WriteLine("[2023-03-30T09:00:06.0000000] hola mundo");
+        console.Received().WriteLine("[2023-03-30T09:00:06] hola mundo");
     }
     
     [Test]
@@ -57,6 +57,6 @@ public class CloggyShould
         var expectedTime = _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
         logger.Log("hola mundo");
 
-        console.Received().WriteLine("[2023-03-30T21:30:06.0000000] hola mundo");
+        console.Received().WriteLine("[2023-03-30T21:30:06] hola mundo");
     }
 }

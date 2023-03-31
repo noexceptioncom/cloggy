@@ -1,9 +1,9 @@
-﻿using Cloggy;
+﻿namespace Cloggy;
 
 public class SystemDateProvider : IDateTimeProvider
 {
     public DateTime Now()
     {
-        throw new NotImplementedException();
+        return DateTime.Now;
     }
 }
