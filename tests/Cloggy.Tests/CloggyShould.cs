@@ -13,7 +13,7 @@ public class CloggyShould
     {
         _dateTimeProvider = Substitute.For<IDateTimeProvider>();
         console = Substitute.For<IConsole>();
-        logger = new Logger(console, false,_dateTimeProvider);
+        logger = new Logger(new LoggerConfig(console, _dateTimeProvider, false));
     }
 
     [Test]
@@ -43,7 +43,7 @@ public class CloggyShould
     [Test]
     public void LogDateTimeWithEveryMessage()
     {
-        logger = new Logger(console, true, _dateTimeProvider);
+        logger = new Logger(new LoggerConfig(console, _dateTimeProvider, true));
         var expectedTime = _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T09:00:06"));
         logger.Log("hola mundo");
 
@@ -53,7 +53,7 @@ public class CloggyShould
     [Test]
     public void LogDateTimeWithEveryMessageAtNight()
     {
-        logger = new Logger(console, true, _dateTimeProvider);
+        logger = new Logger(new LoggerConfig(console, _dateTimeProvider, true));
         var expectedTime = _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
         logger.Log("hola mundo");
 

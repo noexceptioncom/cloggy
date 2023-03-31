@@ -6,11 +6,11 @@ public class Logger
     private readonly bool includeDateTime;
     private readonly IDateTimeProvider _dateTimeProvider;
 
-    public Logger(IConsole console, bool includeDateTime, IDateTimeProvider dateTimeProvider)
+    public Logger(LoggerConfig loggerConfig)
     {
-        this.console = console;
-        this.includeDateTime = includeDateTime;
-        _dateTimeProvider = dateTimeProvider;
+        this.console = loggerConfig.Console;
+        this.includeDateTime = loggerConfig.IncludeDateTime;
+        _dateTimeProvider = loggerConfig.DateTimeProvider;
     }
 
     public void Log(string? message)
