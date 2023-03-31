@@ -59,4 +59,15 @@ public class CloggyShould
 
         console.Received().WriteLine("[2023-03-30T21:30:06] hola mundo");
     }
+
+    [Test]
+    public void LogAnEntryWithInformationAsLoglevel()
+    {
+        logger = new Logger(new LoggerConfig(console, _dateTimeProvider, true));
+        var expectedTime = _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
+        
+        logger.LogInformation("hola mundo");
+        
+        console.Received().WriteLine("[2023-03-30T21:30:06 INF] hola mundo");
+    }
 }

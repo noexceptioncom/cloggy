@@ -22,4 +22,9 @@ public class Logger
         
         console.WriteLine(message ?? string.Empty);
     }
+
+    public void LogInformation(string message)
+    {
+        throw new NotImplementedException();
+    }
 }
