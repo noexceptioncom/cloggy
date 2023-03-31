@@ -2,44 +2,57 @@
 
 public class Logger
 {
-    private readonly IConsole console;
-    private readonly bool includeDateTime;
+    private readonly IConsole _console;
+    private readonly bool _includeDateTime;
     private readonly IDateTimeProvider _dateTimeProvider;
 
     public Logger(LoggerConfig loggerConfig)
     {
-        this.console = loggerConfig.Console;
-        this.includeDateTime = loggerConfig.IncludeDateTime;
+        _console = loggerConfig.Console;
+        _includeDateTime = loggerConfig.IncludeDateTime;
         _dateTimeProvider = loggerConfig.DateTimeProvider;
     }
 
     public void Log(string? message)
     {
-        if (includeDateTime)
-        {
-            message = $"[{_dateTimeProvider.Now().ToString("s")}] {message}";
-        }
-        
-        console.WriteLine(message ?? string.Empty);
+        message = FormatMessage(message, null);
+        _console.WriteLine(message ?? string.Empty);
     }
 
     public void LogInformation(string? message)
     {
-        if (includeDateTime)
-        {
-            message = $"[{_dateTimeProvider.Now().ToString("s")} INF] {message}";
-        }
+
+        message = FormatMessage(message, "INF");
         
-        console.WriteLine(message ?? string.Empty);
+        _console.WriteLine(message ?? string.Empty);
     }
 
     public void LogWarning(string? message)
     {
-        if (includeDateTime)
+        message = FormatMessage(message, "WRN");
+
+        _console.WriteLine(message ?? string.Empty);
+    }
+
+    private string? FormatMessage(string? message, string? logLevel)
+    {
+        if (logLevel is null && !_includeDateTime)
         {
-            message = $"[{_dateTimeProvider.Now().ToString("s")} WRN] {message}";
+            return message;
         }
         
-        console.WriteLine(message ?? string.Empty);
+        var dateTime = string.Empty;
+        if (_includeDateTime)
+        {
+            dateTime = _dateTimeProvider.Now().ToString("s");
+        }
+
+        var logLevelString = string.Empty;
+        if (logLevel is not null)
+        {
+            logLevelString = $" {logLevel}";
+        }
+        
+        return $"[{dateTime}{logLevelString}] {message}";
     }
 }
