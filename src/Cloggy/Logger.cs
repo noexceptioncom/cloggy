@@ -35,6 +35,11 @@ public class Logger
 
     public void LogWarning(string? message)
     {
-        throw new NotImplementedException();
+        if (includeDateTime)
+        {
+            message = $"[{_dateTimeProvider.Now().ToString("s")} WRN] {message}";
+        }
+        
+        console.WriteLine(message ?? string.Empty);
     }
 }
