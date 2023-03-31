@@ -2,5 +2,5 @@
 
 using Cloggy;
 
-var logger = new Logger(new SystemConsole());
+var logger = new Logger(new SystemConsole(), false);
 logger.Log("Hola mundo!");
