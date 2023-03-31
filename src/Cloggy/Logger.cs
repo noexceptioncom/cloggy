@@ -32,4 +32,9 @@ public class Logger
         
         console.WriteLine(message ?? string.Empty);
     }
+
+    public void LogWarning(string? message)
+    {
+        throw new NotImplementedException();
+    }
 }

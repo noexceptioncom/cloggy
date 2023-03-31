@@ -44,7 +44,7 @@ public class CloggyShould
     public void LogDateTimeWithEveryMessage()
     {
         logger = new Logger(new LoggerConfig(console, _dateTimeProvider, true));
-        var expectedTime = _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T09:00:06"));
+        _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T09:00:06"));
         logger.Log("hola mundo");
 
         console.Received().WriteLine("[2023-03-30T09:00:06] hola mundo");
@@ -54,7 +54,7 @@ public class CloggyShould
     public void LogDateTimeWithEveryMessageAtNight()
     {
         logger = new Logger(new LoggerConfig(console, _dateTimeProvider, true));
-        var expectedTime = _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
+        _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
         logger.Log("hola mundo");
 
         console.Received().WriteLine("[2023-03-30T21:30:06] hola mundo");
@@ -64,10 +64,21 @@ public class CloggyShould
     public void LogAnEntryWithInformationAsLoglevel()
     {
         logger = new Logger(new LoggerConfig(console, _dateTimeProvider, true));
-        var expectedTime = _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
+        _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
         
         logger.LogInformation("hola mundo");
         
         console.Received().WriteLine("[2023-03-30T21:30:06 INF] hola mundo");
+    }
+
+    [Test]
+    public void LogAnEntryWithWarningAsLogLevel()
+    {
+        logger = new Logger(new LoggerConfig(console, _dateTimeProvider, true));
+        _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
+        
+        logger.LogWarning("hola mundo");
+        
+        console.Received().WriteLine("[2023-03-30T21:30:06 WRN] hola mundo");
     }
 }
