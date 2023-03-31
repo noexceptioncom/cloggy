@@ -23,8 +23,13 @@ public class Logger
         console.WriteLine(message ?? string.Empty);
     }
 
-    public void LogInformation(string message)
+    public void LogInformation(string? message)
     {
-        throw new NotImplementedException();
+        if (includeDateTime)
+        {
+            message = $"[{_dateTimeProvider.Now().ToString("s")} INF] {message}";
+        }
+        
+        console.WriteLine(message ?? string.Empty);
     }
 }
