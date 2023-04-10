@@ -100,4 +100,15 @@ public class CloggyShould
         
         _console.Received().WriteLine("[2023-03-30T21:30:06 INF (ALabel)] ALabel");
     }
+
+    [Test]
+    public void LogOtherMessageWithCategory()
+    {
+        _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
+        var logger = new Logger(_console, _dateTimeProvider);
+        
+        logger.LogInformation("OtherLabel");
+        
+        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (OtherLabel)] OtherLabel");
+    }
 }
