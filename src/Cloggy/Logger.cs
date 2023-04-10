@@ -8,9 +8,9 @@ public class Logger
 
     public Logger(IConsole console, IDateTimeProvider? dateTimeProvider, string category)
     {
-        if (string.IsNullOrWhiteSpace(category))
+        if (string.IsNullOrWhiteSpace(category) || category.Contains('\n'))
         {
-            throw new ArgumentNullException(nameof(category), "The category cannot be empty");
+            throw new ArgumentNullException(nameof(category), "The category cannot be empty nor contain a new line char");
         }
 
         _console = console;
