@@ -34,6 +34,11 @@ public class Logger
         _console.WriteLine(message ?? string.Empty);
     }
 
+    public void LogError(string holaMundo)
+    {
+        throw new NotImplementedException();
+    }
+
     private string? FormatMessage(string? message, string? logLevel)
     {
         if (logLevel is null && !_includeDateTime)

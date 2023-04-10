@@ -81,4 +81,15 @@ public class CloggyShould
         
         console.Received().WriteLine("[2023-03-30T21:30:06 WRN] hola mundo");
     }
+
+    [Test]
+    public void LogAnEntryWithErrorAsLogLevel()
+    {
+        logger = new Logger(new LoggerConfig(console, _dateTimeProvider, true));
+        _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
+        
+        logger.LogError("hola mundo");
+        
+        console.Received().WriteLine("[2023-03-30T21:30:06 ERR] hola mundo");
+    }
 }
