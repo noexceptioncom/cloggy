@@ -86,37 +86,16 @@ public class CloggyShould
         _console.Received().WriteLine("[2023-03-30T21:30:06 ERR (category)] hola mundo");
     }
 
-    [Test]
-    public void LogAMessageWithCategory()
+    [TestCase("ACategory", "A message")]
+    [TestCase("OtherCategory", "Other message")]
+    [TestCase("AnotherCategory", "Another message")]
+    public void LogMessagesWithCategory(string category, string message)
     {
-        var category = "ACategory";
         var logger = new Logger(_console, _dateTimeProvider, new Category(category));
-
-        logger.LogInformation("A message");
-
-        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (ACategory)] A message");
-    }
-
-    [Test]
-    public void LogMessageWithOtherCategory()
-    {
-        var category = "OtherCategory";
-        var logger = new Logger(_console, _dateTimeProvider, new Category(category));
-
-        logger.LogInformation("Other message");
-
-        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (OtherCategory)] Other message");
-    }
-
-    [Test]
-    public void LogMessageWithAnotherCategory()
-    {
-        var category = "AnotherCategory";
-        var logger = new Logger(_console, _dateTimeProvider, new Category(category));
-
-        logger.LogInformation("Another message");
-
-        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (AnotherCategory)] Another message");
+        
+        logger.LogInformation(message);
+        
+        _console.Received().WriteLine($"[2023-03-30T21:30:06 INF ({category})] {message}");
     }
 
     [Test]
