@@ -15,51 +15,41 @@ public class Logger
 
     public void Log(string? message)
     {
-        message = FormatMessage(message, null);
+        message = FormatMessage(message, LogLevel.INF);
         _console.WriteLine(message ?? string.Empty);
     }
 
     public void LogInformation(string? message)
     {
-        message = FormatMessage(message, "INF");
-        
+        message = FormatMessage(message, LogLevel.INF);
+
         _console.WriteLine(message ?? string.Empty);
     }
 
     public void LogWarning(string? message)
     {
-        message = FormatMessage(message, "WRN");
+        message = FormatMessage(message, LogLevel.WRN);
 
         _console.WriteLine(message ?? string.Empty);
     }
 
     public void LogError(string message)
     {
-        message = FormatMessage(message, "ERR");
+        message = FormatMessage(message, LogLevel.ERR);
 
         _console.WriteLine(message ?? string.Empty);
     }
 
-    private string? FormatMessage(string? message, string? logLevel)
+    private string? FormatMessage(string? message, LogLevel logLevel)
     {
-        if (logLevel is null && !_includeDateTime)
-        {
-            return message;
-        }
-        
         var dateTime = string.Empty;
         if (_includeDateTime)
         {
             dateTime = _dateTimeProvider.Now().ToString("s");
         }
 
-        var logLevelString = string.Empty;
-        if (logLevel is not null)
-        {
-            logLevelString = $"{logLevel}";
-        }
 
-        var header = string.Join(' ', dateTime, logLevelString).Trim();
+        var header = string.Join(' ', dateTime, $"{logLevel}").Trim();
         return $"[{header}] {message}";
     }
 }

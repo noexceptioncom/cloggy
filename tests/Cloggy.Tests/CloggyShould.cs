@@ -29,7 +29,7 @@ public class CloggyShould
     {
         logger.Log("juanvi");
 
-        console.Received().WriteLine("juanvi");
+        console.Received().WriteLine("[INF] juanvi");
     }
     
     [Test]
@@ -37,7 +37,7 @@ public class CloggyShould
     {
         logger.Log(null);
 
-        console.Received().WriteLine(string.Empty);
+        console.Received().WriteLine("[INF] ");
     }
     
     [Test]
@@ -47,7 +47,7 @@ public class CloggyShould
         _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T09:00:06"));
         logger.Log("hola mundo");
 
-        console.Received().WriteLine("[2023-03-30T09:00:06] hola mundo");
+        console.Received().WriteLine("[2023-03-30T09:00:06 INF] hola mundo");
     }
     
     [Test]
@@ -57,7 +57,7 @@ public class CloggyShould
         _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
         logger.Log("hola mundo");
 
-        console.Received().WriteLine("[2023-03-30T21:30:06] hola mundo");
+        console.Received().WriteLine("[2023-03-30T21:30:06 INF] hola mundo");
     }
 
     [Test]
