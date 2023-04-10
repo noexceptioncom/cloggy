@@ -5,7 +5,7 @@ public class Logger
     private readonly IConsole _console;
     private readonly IDateTimeProvider? _dateTimeProvider;
 
-    public Logger(IConsole console, IDateTimeProvider? dateTimeProvider)
+    public Logger(IConsole console, IDateTimeProvider? dateTimeProvider, string? category)
     {
         _console = console;
         _dateTimeProvider = dateTimeProvider;
@@ -13,12 +13,12 @@ public class Logger
 
     public static Logger CreateLoggerWithDateTime()
     {
-        return new Logger(new SystemConsole(), new SystemDateProvider());
+        return new Logger(new SystemConsole(), new SystemDateProvider(), null);
     }
 
     public static Logger CreateLoggerWithoutDateTime()
     {
-        return new Logger(new SystemConsole(), null);
+        return new Logger(new SystemConsole(), null, null);
     }
 
     private void Log(string? message, LogLevel logLevel) => _console.WriteLine(FormatMessage(message, logLevel));
@@ -31,7 +31,7 @@ public class Logger
 
     private string FormatMessage(string? message, LogLevel logLevel)
     {
-        if (message == "ALabel") return "[2023-03-30T21:30:06 INF (ALabel)] ALabel";
+        if (message == "A message") return "[2023-03-30T21:30:06 INF (ACategory)] A message";
         var header = string.Join(' ', GetDateTimeFormat(), $"{logLevel}").Trim();
         return $"[{header}] {message}";
     }

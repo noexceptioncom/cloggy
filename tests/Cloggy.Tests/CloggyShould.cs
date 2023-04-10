@@ -14,8 +14,8 @@ public class CloggyShould
     {
         _dateTimeProvider = Substitute.For<IDateTimeProvider>();
         _console = Substitute.For<IConsole>();
-        _loggerWithoutDate = new Logger(_console, null);
-        _loggerWithDate = new Logger(_console, _dateTimeProvider);
+        _loggerWithoutDate = new Logger(_console, null, null);
+        _loggerWithDate = new Logger(_console, _dateTimeProvider, null);
     }
 
     [Test]
@@ -94,21 +94,11 @@ public class CloggyShould
     public void LogAMessageWithCategory()
     {
         _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
-        var logger = new Logger(_console, _dateTimeProvider);
+        var category = "ACategory";
+        var logger = new Logger(_console, _dateTimeProvider, category);
         
-        logger.LogInformation("ALabel");
+        logger.LogInformation("A message");
         
-        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (ALabel)] ALabel");
-    }
-
-    [Test]
-    public void LogOtherMessageWithCategory()
-    {
-        _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
-        var logger = new Logger(_console, _dateTimeProvider);
-        
-        logger.LogInformation("OtherLabel");
-        
-        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (OtherLabel)] OtherLabel");
+        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (ACategory)] A message");
     }
 }
