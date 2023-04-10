@@ -8,14 +8,15 @@ public class CloggyShould
     private Logger _loggerWithDate;
     private Logger _loggerWithoutDate;
     private IDateTimeProvider _dateTimeProvider;
+    private const string Category = "category";
 
     [SetUp]
     public void SetUp()
     {
         _dateTimeProvider = Substitute.For<IDateTimeProvider>();
         _console = Substitute.For<IConsole>();
-        _loggerWithoutDate = new Logger(_console, null, null);
-        _loggerWithDate = new Logger(_console, _dateTimeProvider, null);
+        _loggerWithoutDate = new Logger(_console, null, Category);
+        _loggerWithDate = new Logger(_console, _dateTimeProvider, Category);
     }
 
     [Test]
@@ -23,7 +24,7 @@ public class CloggyShould
     {
         _loggerWithoutDate.LogInformation(string.Empty);
 
-        _console.Received().WriteLine("[INF] ");
+        _console.Received().WriteLine("[INF (category)] ");
     }
     
     [Test]
@@ -31,7 +32,7 @@ public class CloggyShould
     {
         _loggerWithoutDate.LogInformation("juanvi");
 
-        _console.Received().WriteLine("[INF] juanvi");
+        _console.Received().WriteLine("[INF (category)] juanvi");
     }
     
     [Test]
@@ -39,7 +40,7 @@ public class CloggyShould
     {
         _loggerWithoutDate.LogInformation(null);
 
-        _console.Received().WriteLine("[INF] ");
+        _console.Received().WriteLine("[INF (category)] ");
     }
     
     [Test]
@@ -48,7 +49,7 @@ public class CloggyShould
         _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T09:00:06"));
         _loggerWithDate.LogInformation("hola mundo");
 
-        _console.Received().WriteLine("[2023-03-30T09:00:06 INF] hola mundo");
+        _console.Received().WriteLine("[2023-03-30T09:00:06 INF (category)] hola mundo");
     }
     
     [Test]
@@ -57,7 +58,7 @@ public class CloggyShould
         _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
         _loggerWithDate.LogInformation("hola mundo");
 
-        _console.Received().WriteLine("[2023-03-30T21:30:06 INF] hola mundo");
+        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (category)] hola mundo");
     }
 
     [Test]
@@ -67,7 +68,7 @@ public class CloggyShould
         
         _loggerWithDate.LogInformation("hola mundo");
         
-        _console.Received().WriteLine("[2023-03-30T21:30:06 INF] hola mundo");
+        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (category)] hola mundo");
     }
 
     [Test]
@@ -77,7 +78,7 @@ public class CloggyShould
         
         _loggerWithDate.LogWarning("hola mundo");
         
-        _console.Received().WriteLine("[2023-03-30T21:30:06 WRN] hola mundo");
+        _console.Received().WriteLine("[2023-03-30T21:30:06 WRN (category)] hola mundo");
     }
 
     [Test]
@@ -87,7 +88,7 @@ public class CloggyShould
         
         _loggerWithDate.LogError("hola mundo");
         
-        _console.Received().WriteLine("[2023-03-30T21:30:06 ERR] hola mundo");
+        _console.Received().WriteLine("[2023-03-30T21:30:06 ERR (category)] hola mundo");
     }
 
     [Test]

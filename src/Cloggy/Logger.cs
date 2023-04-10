@@ -4,9 +4,9 @@ public class Logger
 {
     private readonly IConsole _console;
     private readonly IDateTimeProvider? _dateTimeProvider;
-    private readonly string? _category;
+    private readonly string _category;
 
-    public Logger(IConsole console, IDateTimeProvider? dateTimeProvider, string? category)
+    public Logger(IConsole console, IDateTimeProvider? dateTimeProvider, string category)
     {
         _console = console;
         _dateTimeProvider = dateTimeProvider;
@@ -40,7 +40,7 @@ public class Logger
 
     private string GetCategory()
     {
-        return _category == null ? string.Empty : $"({_category})";
+        return $"({_category})";
     }
 
     private string GetDateTimeFormat() => HasDateTime ? _dateTimeProvider!.Now().ToString("s") : string.Empty;
