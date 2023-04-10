@@ -141,4 +141,10 @@ public class CloggyShould
         Action action = () => new Logger(_console, _dateTimeProvider, "    ");
         action.Should().Throw<ArgumentNullException>();
     }
+    [Test]
+    public void ReportAErrorWhenCategoryContainsNewLine()
+    {
+        Action action = () => new Logger(_console, _dateTimeProvider, "ca\ntegory");
+        action.Should().Throw<ArgumentNullException>();
+    }
 }
