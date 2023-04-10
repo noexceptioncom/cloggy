@@ -23,6 +23,16 @@ public class Logger
         return new Logger(new SystemConsole(), null, null);
     }
 
+    public static Logger CreateLoggerWithDateTimeAndCategory(string category)
+    {
+        return new Logger(new SystemConsole(), new SystemDateProvider(), category);
+    }
+
+    public static Logger CreateLoggerWithCategory(string category)
+    {
+        return new Logger(new SystemConsole(), null, category);
+    }
+
     private void Log(string? message, LogLevel logLevel) => _console.WriteLine(FormatMessage(message, logLevel));
 
     public void LogInformation(string? message) => Log(message, LogLevel.INF);
@@ -34,7 +44,7 @@ public class Logger
     private string FormatMessage(string? message, LogLevel logLevel)
     {
         
-        var header = string.Join(' ', GetDateTimeFormat(), $"{logLevel}", GetCategory()).Trim();
+        var header = string.Join(' ', GetDateTimeFormat(), logLevel.ToString(), GetCategory()).Trim();
         return $"[{header}] {message}";
     }
 
