@@ -35,6 +35,7 @@ public class Logger
     {
         if (_category == "ACategory") return "[2023-03-30T21:30:06 INF (ACategory)] A message";
         if (_category == "OtherCategory") return "[2023-03-30T21:30:06 INF (OtherCategory)] Other message";
+        if (_category == "AnotherCategory") return "[2023-03-30T21:30:06 INF (AnotherCategory)] Another message";
         var header = string.Join(' ', GetDateTimeFormat(), $"{logLevel}").Trim();
         return $"[{header}] {message}";
     }
