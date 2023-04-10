@@ -113,4 +113,16 @@ public class CloggyShould
         
         _console.Received().WriteLine("[2023-03-30T21:30:06 INF (OtherCategory)] Other message");
     }
+
+    [Test]
+    public void LogMessageWithAnotherCategory()
+    {
+        _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
+        var category = "AnotherCategory";
+        var logger = new Logger(_console, _dateTimeProvider, category);
+        
+        logger.LogInformation("Another message");
+        
+        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (AnotherCategory)] Another message");
+    }
 }
