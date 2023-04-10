@@ -18,6 +18,7 @@ public class CloggyShould
         _console = Substitute.For<IConsole>();
         _loggerWithoutDate = new Logger(_console, null, new Category(Category));
         _loggerWithDate = new Logger(_console, _dateTimeProvider, new Category(Category));
+        _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
     }
 
     [Test]
@@ -27,7 +28,7 @@ public class CloggyShould
 
         _console.Received().WriteLine("[INF (category)] ");
     }
-    
+
     [Test]
     public void LogAnotherWordInConsole()
     {
@@ -35,7 +36,7 @@ public class CloggyShould
 
         _console.Received().WriteLine("[INF (category)] juanvi");
     }
-    
+
     [Test]
     public void LogEmptyWhenPassingNullMessage()
     {
@@ -43,7 +44,7 @@ public class CloggyShould
 
         _console.Received().WriteLine("[INF (category)] ");
     }
-    
+
     [Test]
     public void LogDateTimeWithEveryMessage()
     {
@@ -52,11 +53,10 @@ public class CloggyShould
 
         _console.Received().WriteLine("[2023-03-30T09:00:06 INF (category)] hola mundo");
     }
-    
+
     [Test]
     public void LogDateTimeWithEveryMessageAtNight()
     {
-        _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
         _loggerWithDate.LogInformation("hola mundo");
 
         _console.Received().WriteLine("[2023-03-30T21:30:06 INF (category)] hola mundo");
@@ -65,66 +65,57 @@ public class CloggyShould
     [Test]
     public void LogAnEntryWithInformationAsLoglevel()
     {
-        _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
-        
         _loggerWithDate.LogInformation("hola mundo");
-        
+
         _console.Received().WriteLine("[2023-03-30T21:30:06 INF (category)] hola mundo");
     }
 
     [Test]
     public void LogAnEntryWithWarningAsLogLevel()
     {
-        _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
-        
         _loggerWithDate.LogWarning("hola mundo");
-        
+
         _console.Received().WriteLine("[2023-03-30T21:30:06 WRN (category)] hola mundo");
     }
 
     [Test]
     public void LogAnEntryWithErrorAsLogLevel()
     {
-        _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
-        
         _loggerWithDate.LogError("hola mundo");
-        
+
         _console.Received().WriteLine("[2023-03-30T21:30:06 ERR (category)] hola mundo");
     }
 
     [Test]
     public void LogAMessageWithCategory()
     {
-        _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
         var category = "ACategory";
         var logger = new Logger(_console, _dateTimeProvider, new Category(category));
-        
+
         logger.LogInformation("A message");
-        
+
         _console.Received().WriteLine("[2023-03-30T21:30:06 INF (ACategory)] A message");
     }
 
     [Test]
     public void LogMessageWithOtherCategory()
     {
-        _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
         var category = "OtherCategory";
         var logger = new Logger(_console, _dateTimeProvider, new Category(category));
-        
+
         logger.LogInformation("Other message");
-        
+
         _console.Received().WriteLine("[2023-03-30T21:30:06 INF (OtherCategory)] Other message");
     }
 
     [Test]
     public void LogMessageWithAnotherCategory()
     {
-        _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
         var category = "AnotherCategory";
         var logger = new Logger(_console, _dateTimeProvider, new Category(category));
-        
+
         logger.LogInformation("Another message");
-        
+
         _console.Received().WriteLine("[2023-03-30T21:30:06 INF (AnotherCategory)] Another message");
     }
 
@@ -132,6 +123,7 @@ public class CloggyShould
     public void ReportAErrorWhenCategoryIsEmpty()
     {
         Action action = () => new Logger(_console, _dateTimeProvider, new Category(string.Empty));
+        
         action.Should().Throw<ArgumentNullException>();
     }
 
@@ -139,12 +131,15 @@ public class CloggyShould
     public void ReportAErrorWhenCategoryIsMultipleSpaces()
     {
         Action action = () => new Logger(_console, _dateTimeProvider, new Category("    "));
+        
         action.Should().Throw<ArgumentNullException>();
     }
+
     [Test]
     public void ReportAErrorWhenCategoryContainsNewLine()
     {
         Action action = () => new Logger(_console, _dateTimeProvider, new Category("ca\ntegory"));
+        
         action.Should().Throw<ArgumentNullException>();
     }
 }
