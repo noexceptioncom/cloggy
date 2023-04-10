@@ -31,15 +31,12 @@ public class Logger
 
     private string FormatMessage(string? message, LogLevel logLevel)
     {
-        var dateTime = string.Empty;
-        if (HasDateTime)
-        {
-            dateTime = _dateTimeProvider!.Now().ToString("s");
-        }
-
+        var dateTime = GetDateTimeFormat();
         var header = string.Join(' ', dateTime, $"{logLevel}").Trim();
         return $"[{header}] {message}";
     }
+
+    private string GetDateTimeFormat() => HasDateTime ? _dateTimeProvider!.Now().ToString("s") : string.Empty;
 
     private bool HasDateTime => _dateTimeProvider is not null;
 }
