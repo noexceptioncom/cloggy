@@ -134,4 +134,11 @@ public class CloggyShould
         Action action = () => new Logger(_console,_dateTimeProvider, string.Empty);
         action.Should().Throw<ArgumentNullException>();
     }
+
+    [Test]
+    public void ReportAErrorWhenCategoryIsMultipleSpaces()
+    {
+        Action action = () => new Logger(_console, _dateTimeProvider, "    ");
+        action.Should().Throw<ArgumentNullException>();
+    }
 }

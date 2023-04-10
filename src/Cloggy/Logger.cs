@@ -8,11 +8,11 @@ public class Logger
 
     public Logger(IConsole console, IDateTimeProvider? dateTimeProvider, string category)
     {
-        if (string.Empty == category)
+        if (string.IsNullOrWhiteSpace(category))
         {
             throw new ArgumentNullException(nameof(category), "The category cannot be empty");
         }
-        
+
         _console = console;
         _dateTimeProvider = dateTimeProvider;
         _category = category;
@@ -38,7 +38,6 @@ public class Logger
 
     private string FormatMessage(string? message, LogLevel logLevel)
     {
-        
         var header = string.Join(' ', GetDateTimeFormat(), logLevel.ToString(), GetCategory()).Trim();
         return $"[{header}] {message}";
     }
