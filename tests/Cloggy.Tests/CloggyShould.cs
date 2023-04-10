@@ -16,8 +16,8 @@ public class CloggyShould
     {
         _dateTimeProvider = Substitute.For<IDateTimeProvider>();
         _console = Substitute.For<IConsole>();
-        _loggerWithoutDate = new Logger(_console, null, Category);
-        _loggerWithDate = new Logger(_console, _dateTimeProvider, Category);
+        _loggerWithoutDate = new Logger(_console, null, new Category(Category));
+        _loggerWithDate = new Logger(_console, _dateTimeProvider, new Category(Category));
     }
 
     [Test]
@@ -97,7 +97,7 @@ public class CloggyShould
     {
         _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
         var category = "ACategory";
-        var logger = new Logger(_console, _dateTimeProvider, category);
+        var logger = new Logger(_console, _dateTimeProvider, new Category(category));
         
         logger.LogInformation("A message");
         
@@ -109,7 +109,7 @@ public class CloggyShould
     {
         _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
         var category = "OtherCategory";
-        var logger = new Logger(_console, _dateTimeProvider, category);
+        var logger = new Logger(_console, _dateTimeProvider, new Category(category));
         
         logger.LogInformation("Other message");
         
@@ -121,7 +121,7 @@ public class CloggyShould
     {
         _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
         var category = "AnotherCategory";
-        var logger = new Logger(_console, _dateTimeProvider, category);
+        var logger = new Logger(_console, _dateTimeProvider, new Category(category));
         
         logger.LogInformation("Another message");
         
@@ -131,20 +131,20 @@ public class CloggyShould
     [Test]
     public void ReportAErrorWhenCategoryIsEmpty()
     {
-        Action action = () => new Logger(_console,_dateTimeProvider, string.Empty);
+        Action action = () => new Logger(_console, _dateTimeProvider, new Category(string.Empty));
         action.Should().Throw<ArgumentNullException>();
     }
 
     [Test]
     public void ReportAErrorWhenCategoryIsMultipleSpaces()
     {
-        Action action = () => new Logger(_console, _dateTimeProvider, "    ");
+        Action action = () => new Logger(_console, _dateTimeProvider, new Category("    "));
         action.Should().Throw<ArgumentNullException>();
     }
     [Test]
     public void ReportAErrorWhenCategoryContainsNewLine()
     {
-        Action action = () => new Logger(_console, _dateTimeProvider, "ca\ntegory");
+        Action action = () => new Logger(_console, _dateTimeProvider, new Category("ca\ntegory"));
         action.Should().Throw<ArgumentNullException>();
     }
 }

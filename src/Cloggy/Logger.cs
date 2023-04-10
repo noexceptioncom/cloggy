@@ -4,31 +4,23 @@ public class Logger
 {
     private readonly IConsole _console;
     private readonly IDateTimeProvider? _dateTimeProvider;
-    private readonly string _category;
+    private readonly Category _category;
 
-    public Logger(IConsole console, IDateTimeProvider? dateTimeProvider, string category)
+    public Logger(IConsole console, IDateTimeProvider? dateTimeProvider, Category category)
     {
-        CheckCategoryIsValid(category);
         _console = console;
         _dateTimeProvider = dateTimeProvider;
         _category = category;
     }
 
-    private static void CheckCategoryIsValid(string category)
-    {
-        if (string.IsNullOrWhiteSpace(category) || category.Contains('\n'))
-            throw new ArgumentNullException(nameof(category),
-                "The category cannot be empty nor contain a new line char");
-    }
-
     public static Logger CreateLoggerWithDateTime(string category)
     {
-        return new Logger(new SystemConsole(), new SystemDateProvider(), category);
+        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category));
     }
 
     public static Logger CreateLoggerWithoutDateTime(string category)
     {
-        return new Logger(new SystemConsole(), null, category);
+        return new Logger(new SystemConsole(), null, new Category(category));
     }
 
     private void Log(string? message, LogLevel logLevel) => _console.WriteLine(FormatMessage(message, logLevel));
@@ -41,13 +33,8 @@ public class Logger
 
     private string FormatMessage(string? message, LogLevel logLevel)
     {
-        var header = string.Join(' ', GetDateTimeFormat(), logLevel.ToString(), GetCategory()).Trim();
+        var header = string.Join(' ', GetDateTimeFormat(), logLevel.ToString(), _category.ToString()).Trim();
         return $"[{header}] {message}";
-    }
-
-    private string GetCategory()
-    {
-        return $"({_category})";
     }
 
     private string GetDateTimeFormat() => HasDateTime ? _dateTimeProvider!.Now().ToString("s") : string.Empty;
