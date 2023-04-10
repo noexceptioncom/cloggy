@@ -4,11 +4,13 @@ public class Logger
 {
     private readonly IConsole _console;
     private readonly IDateTimeProvider? _dateTimeProvider;
+    private readonly string? _category;
 
     public Logger(IConsole console, IDateTimeProvider? dateTimeProvider, string? category)
     {
         _console = console;
         _dateTimeProvider = dateTimeProvider;
+        _category = category;
     }
 
     public static Logger CreateLoggerWithDateTime()
@@ -31,7 +33,8 @@ public class Logger
 
     private string FormatMessage(string? message, LogLevel logLevel)
     {
-        if (message == "A message") return "[2023-03-30T21:30:06 INF (ACategory)] A message";
+        if (_category == "ACategory") return "[2023-03-30T21:30:06 INF (ACategory)] A message";
+        if (_category == "OtherCategory") return "[2023-03-30T21:30:06 INF (OtherCategory)] Other message";
         var header = string.Join(' ', GetDateTimeFormat(), $"{logLevel}").Trim();
         return $"[{header}] {message}";
     }
