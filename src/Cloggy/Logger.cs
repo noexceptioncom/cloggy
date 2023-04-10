@@ -21,39 +21,26 @@ public class Logger
         return new Logger(new SystemConsole(), null);
     }
 
-    public void LogInformation(string? message)
-    {
-        message = FormatMessage(message, LogLevel.INF);
+    private void Log(string? message, LogLevel logLevel) => _console.WriteLine(FormatMessage(message, logLevel));
 
-        _console.WriteLine(message ?? string.Empty);
-    }
+    public void LogInformation(string? message) => Log(message, LogLevel.INF);
 
-    public void LogWarning(string? message)
-    {
-        message = FormatMessage(message, LogLevel.WRN);
+    public void LogWarning(string? message) => Log(message, LogLevel.WRN);
 
-        _console.WriteLine(message ?? string.Empty);
-    }
+    public void LogError(string? message) => Log(message, LogLevel.ERR);
 
-    public void LogError(string message)
-    {
-        message = FormatMessage(message, LogLevel.ERR);
-
-        _console.WriteLine(message ?? string.Empty);
-    }
-
-    private string? FormatMessage(string? message, LogLevel logLevel)
+    private string FormatMessage(string? message, LogLevel logLevel)
     {
         var dateTime = string.Empty;
         if (HasDateTime)
         {
-            dateTime = _dateTimeProvider.Now().ToString("s");
+            dateTime = _dateTimeProvider?.Now().ToString("s");
         }
 
 
         var header = string.Join(' ', dateTime, $"{logLevel}").Trim();
         return $"[{header}] {message}";
     }
-    
+
     private bool HasDateTime => _dateTimeProvider is not null;
 }
