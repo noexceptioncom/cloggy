@@ -2,23 +2,23 @@
 
 public class Category
 {
-    private readonly string _value;
+    private readonly string _name;
 
-    public Category(string value)
+    public Category(string name)
     {
-        CheckCategoryIsValid(value);
-        _value = value;
+        ValidateName(name);
+        _name = name;
     }
 
-    private static void CheckCategoryIsValid(string category)
+    private static void ValidateName(string name)
     {
-        if (string.IsNullOrWhiteSpace(category) || category.Contains('\n'))
-            throw new ArgumentNullException(nameof(category),
+        if (string.IsNullOrWhiteSpace(name) || name.Contains('\n'))
+            throw new ArgumentNullException(nameof(name),
                 "The category cannot be empty nor contain a new line char");
     }
 
     public override string ToString()
     {
-        return $"({_value})";
+        return $"({_name})";
     }
 }
