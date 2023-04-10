@@ -34,9 +34,8 @@ public class Logger
         var dateTime = string.Empty;
         if (HasDateTime)
         {
-            dateTime = _dateTimeProvider?.Now().ToString("s");
+            dateTime = _dateTimeProvider!.Now().ToString("s");
         }
-
 
         var header = string.Join(' ', dateTime, $"{logLevel}").Trim();
         return $"[{header}] {message}";
