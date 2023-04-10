@@ -21,7 +21,6 @@ public class Logger
 
     public void LogInformation(string? message)
     {
-
         message = FormatMessage(message, "INF");
         
         _console.WriteLine(message ?? string.Empty);
@@ -57,9 +56,10 @@ public class Logger
         var logLevelString = string.Empty;
         if (logLevel is not null)
         {
-            logLevelString = $" {logLevel}";
+            logLevelString = $"{logLevel}";
         }
-        
-        return $"[{dateTime}{logLevelString}] {message}";
+
+        var header = string.Join(' ', dateTime, logLevelString).Trim();
+        return $"[{header}] {message}";
     }
 }

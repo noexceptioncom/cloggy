@@ -19,9 +19,9 @@ public class CloggyShould
     [Test]
     public void LogAnEntryInConsole()
     {
-        logger.Log(string.Empty);
+        logger.LogInformation(string.Empty);
 
-        console.Received().WriteLine(string.Empty);
+        console.Received().WriteLine("[INF] ");
     }
     
     [Test]
