@@ -34,9 +34,11 @@ public class Logger
         _console.WriteLine(message ?? string.Empty);
     }
 
-    public void LogError(string holaMundo)
+    public void LogError(string message)
     {
-        throw new NotImplementedException();
+        message = FormatMessage(message, "ERR");
+
+        _console.WriteLine(message ?? string.Empty);
     }
 
     private string? FormatMessage(string? message, string? logLevel)
