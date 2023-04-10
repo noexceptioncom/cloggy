@@ -33,11 +33,14 @@ public class Logger
 
     private string FormatMessage(string? message, LogLevel logLevel)
     {
-        if (_category == "ACategory") return "[2023-03-30T21:30:06 INF (ACategory)] A message";
-        if (_category == "OtherCategory") return "[2023-03-30T21:30:06 INF (OtherCategory)] Other message";
-        if (_category == "AnotherCategory") return "[2023-03-30T21:30:06 INF (AnotherCategory)] Another message";
-        var header = string.Join(' ', GetDateTimeFormat(), $"{logLevel}").Trim();
+        
+        var header = string.Join(' ', GetDateTimeFormat(), $"{logLevel}", GetCategory()).Trim();
         return $"[{header}] {message}";
+    }
+
+    private string GetCategory()
+    {
+        return _category == null ? string.Empty : $"({_category})";
     }
 
     private string GetDateTimeFormat() => HasDateTime ? _dateTimeProvider!.Now().ToString("s") : string.Empty;
