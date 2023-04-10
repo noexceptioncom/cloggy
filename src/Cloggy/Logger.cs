@@ -31,8 +31,7 @@ public class Logger
 
     private string FormatMessage(string? message, LogLevel logLevel)
     {
-        var dateTime = GetDateTimeFormat();
-        var header = string.Join(' ', dateTime, $"{logLevel}").Trim();
+        var header = string.Join(' ', GetDateTimeFormat(), $"{logLevel}").Trim();
         return $"[{header}] {message}";
     }
 

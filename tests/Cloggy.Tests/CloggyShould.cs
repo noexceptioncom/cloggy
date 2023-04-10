@@ -89,4 +89,15 @@ public class CloggyShould
         
         _console.Received().WriteLine("[2023-03-30T21:30:06 ERR] hola mundo");
     }
+
+    [Test]
+    public void LogAMessageWithCategory()
+    {
+        _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
+        var logger = new Logger(_console, _dateTimeProvider);
+        
+        logger.LogInformation("ALabel");
+        
+        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (ALabel)] ALabel");
+    }
 }

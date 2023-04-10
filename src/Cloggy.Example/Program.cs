@@ -7,6 +7,5 @@ logger.LogInformation("Log con fecha");
 logger.LogError("Error Log information");
 logger.LogWarning("Log warning");
 
-
 var loggerWithoutDate = Logger.CreateLoggerWithoutDateTime();
 loggerWithoutDate.LogInformation("Log simple");
