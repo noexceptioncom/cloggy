@@ -98,26 +98,12 @@ public class CloggyShould
         _console.Received().WriteLine($"[2023-03-30T21:30:06 INF ({category})] {message}");
     }
 
-    [Test]
-    public void ReportAErrorWhenCategoryIsEmpty()
+    [TestCase("")]
+    [TestCase("    ")]
+    [TestCase("ca\ntegory")]
+    public void ReportAErrorWhenCategoryIsNotValid(string categoryName)
     {
-        Action action = () => new Logger(_console, _dateTimeProvider, new Category(string.Empty));
-        
-        action.Should().Throw<ArgumentNullException>();
-    }
-
-    [Test]
-    public void ReportAErrorWhenCategoryIsMultipleSpaces()
-    {
-        Action action = () => new Logger(_console, _dateTimeProvider, new Category("    "));
-        
-        action.Should().Throw<ArgumentNullException>();
-    }
-
-    [Test]
-    public void ReportAErrorWhenCategoryContainsNewLine()
-    {
-        Action action = () => new Logger(_console, _dateTimeProvider, new Category("ca\ntegory"));
+        Action action = () => new Logger(_console, _dateTimeProvider, new Category(categoryName));
         
         action.Should().Throw<ArgumentNullException>();
     }
