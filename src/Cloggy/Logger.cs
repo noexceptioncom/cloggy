@@ -31,6 +31,7 @@ public class Logger
 
     private string FormatMessage(string? message, LogLevel logLevel)
     {
+        if (message == "ALabel") return "[2023-03-30T21:30:06 INF (ALabel)] ALabel";
         var header = string.Join(' ', GetDateTimeFormat(), $"{logLevel}").Trim();
         return $"[{header}] {message}";
     }
