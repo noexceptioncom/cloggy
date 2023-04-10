@@ -8,14 +8,17 @@ public class Logger
 
     public Logger(IConsole console, IDateTimeProvider? dateTimeProvider, string category)
     {
-        if (string.IsNullOrWhiteSpace(category) || category.Contains('\n'))
-        {
-            throw new ArgumentNullException(nameof(category), "The category cannot be empty nor contain a new line char");
-        }
-
+        CheckCategoryIsValid(category);
         _console = console;
         _dateTimeProvider = dateTimeProvider;
         _category = category;
+    }
+
+    private static void CheckCategoryIsValid(string category)
+    {
+        if (string.IsNullOrWhiteSpace(category) || category.Contains('\n'))
+            throw new ArgumentNullException(nameof(category),
+                "The category cannot be empty nor contain a new line char");
     }
 
     public static Logger CreateLoggerWithDateTime(string category)
