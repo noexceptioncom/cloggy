@@ -27,7 +27,7 @@ public class CloggyShould
     [Test]
     public void LogAnotherWordInConsole()
     {
-        logger.Log("juanvi");
+        logger.LogInformation("juanvi");
 
         console.Received().WriteLine("[INF] juanvi");
     }
@@ -35,7 +35,7 @@ public class CloggyShould
     [Test]
     public void LogEmptyWhenPassingNullMessage()
     {
-        logger.Log(null);
+        logger.LogInformation(null);
 
         console.Received().WriteLine("[INF] ");
     }
@@ -45,7 +45,7 @@ public class CloggyShould
     {
         logger = new Logger(new LoggerConfig(console, _dateTimeProvider, true));
         _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T09:00:06"));
-        logger.Log("hola mundo");
+        logger.LogInformation("hola mundo");
 
         console.Received().WriteLine("[2023-03-30T09:00:06 INF] hola mundo");
     }
@@ -55,7 +55,7 @@ public class CloggyShould
     {
         logger = new Logger(new LoggerConfig(console, _dateTimeProvider, true));
         _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
-        logger.Log("hola mundo");
+        logger.LogInformation("hola mundo");
 
         console.Received().WriteLine("[2023-03-30T21:30:06 INF] hola mundo");
     }

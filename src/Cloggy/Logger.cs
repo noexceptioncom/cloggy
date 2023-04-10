@@ -13,12 +13,6 @@ public class Logger
         _dateTimeProvider = loggerConfig.DateTimeProvider;
     }
 
-    public void Log(string? message)
-    {
-        message = FormatMessage(message, LogLevel.INF);
-        _console.WriteLine(message ?? string.Empty);
-    }
-
     public void LogInformation(string? message)
     {
         message = FormatMessage(message, LogLevel.INF);

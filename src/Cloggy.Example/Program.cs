@@ -3,10 +3,10 @@
 using Cloggy;
 var logger = new Logger(new LoggerConfig(new SystemConsole(), new SystemDateProvider(), true));
 
-logger.Log("Log con fecha");
-logger.LogInformation("Log information");
+logger.LogInformation("Log con fecha");
+logger.LogError("Error Log information");
 logger.LogWarning("Log warning");
 
 
 var loggerWithoutDate = new Logger(new LoggerConfig(new SystemConsole(), new SystemDateProvider(), false));
-loggerWithoutDate.Log("Log simple");
+loggerWithoutDate.LogInformation("Log simple");
