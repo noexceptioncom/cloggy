@@ -1,3 +1,4 @@
+using FluentAssertions;
 using NSubstitute;
 
 namespace Cloggy.Tests;
@@ -125,5 +126,12 @@ public class CloggyShould
         logger.LogInformation("Another message");
         
         _console.Received().WriteLine("[2023-03-30T21:30:06 INF (AnotherCategory)] Another message");
+    }
+
+    [Test]
+    public void ReportAErrorWhenCategoryIsEmpty()
+    {
+        Action action = () => new Logger(_console,_dateTimeProvider, string.Empty);
+        action.Should().Throw<LogCategoryException>();
     }
 }
