@@ -3,24 +3,22 @@
 public class Logger
 {
     private readonly IConsole _console;
-    private readonly bool _includeDateTime;
-    private readonly IDateTimeProvider _dateTimeProvider;
+    private readonly IDateTimeProvider? _dateTimeProvider;
 
-    public Logger(IConsole console, IDateTimeProvider dateTimeProvider, bool includeDateTime)
+    public Logger(IConsole console, IDateTimeProvider? dateTimeProvider)
     {
         _console = console;
-        _includeDateTime = includeDateTime;
         _dateTimeProvider = dateTimeProvider;
     }
 
     public static Logger CreateLoggerWithDateTime()
     {
-        return new Logger(new SystemConsole(), new SystemDateProvider(), true);
+        return new Logger(new SystemConsole(), new SystemDateProvider());
     }
 
     public static Logger CreateLoggerWithoutDateTime()
     {
-        return new Logger(new SystemConsole(), new SystemDateProvider(), false);
+        return new Logger(new SystemConsole(), null);
     }
 
     public void LogInformation(string? message)
@@ -47,7 +45,7 @@ public class Logger
     private string? FormatMessage(string? message, LogLevel logLevel)
     {
         var dateTime = string.Empty;
-        if (_includeDateTime)
+        if (HasDateTime)
         {
             dateTime = _dateTimeProvider.Now().ToString("s");
         }
@@ -56,4 +54,6 @@ public class Logger
         var header = string.Join(' ', dateTime, $"{logLevel}").Trim();
         return $"[{header}] {message}";
     }
+    
+    private bool HasDateTime => _dateTimeProvider is not null;
 }

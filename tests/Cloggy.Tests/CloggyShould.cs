@@ -14,8 +14,8 @@ public class CloggyShould
     {
         _dateTimeProvider = Substitute.For<IDateTimeProvider>();
         _console = Substitute.For<IConsole>();
-        _loggerWithoutDate = new Logger(_console, _dateTimeProvider, false);
-        _loggerWithDate = new Logger(_console, _dateTimeProvider, true);
+        _loggerWithoutDate = new Logger(_console, null);
+        _loggerWithDate = new Logger(_console, _dateTimeProvider);
     }
 
     [Test]
