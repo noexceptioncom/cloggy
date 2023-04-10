@@ -1,4 +1,4 @@
-﻿namespace Cloggy.Tests;
+﻿namespace Cloggy;
 
 public class LogCategoryException : Exception
 {

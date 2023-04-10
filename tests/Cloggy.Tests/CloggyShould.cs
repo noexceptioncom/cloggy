@@ -132,6 +132,6 @@ public class CloggyShould
     public void ReportAErrorWhenCategoryIsEmpty()
     {
         Action action = () => new Logger(_console,_dateTimeProvider, string.Empty);
-        action.Should().Throw<LogCategoryException>();
+        action.Should().Throw<ArgumentNullException>();
     }
 }

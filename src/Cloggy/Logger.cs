@@ -8,6 +8,11 @@ public class Logger
 
     public Logger(IConsole console, IDateTimeProvider? dateTimeProvider, string category)
     {
+        if (string.Empty == category)
+        {
+            throw new ArgumentNullException(nameof(category), "The category cannot be empty");
+        }
+        
         _console = console;
         _dateTimeProvider = dateTimeProvider;
         _category = category;
