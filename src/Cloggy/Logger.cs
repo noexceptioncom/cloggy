@@ -13,22 +13,12 @@ public class Logger
         _category = category;
     }
 
-    public static Logger CreateLoggerWithDateTime()
-    {
-        return new Logger(new SystemConsole(), new SystemDateProvider(), null);
-    }
-
-    public static Logger CreateLoggerWithoutDateTime()
-    {
-        return new Logger(new SystemConsole(), null, null);
-    }
-
-    public static Logger CreateLoggerWithDateTimeAndCategory(string category)
+    public static Logger CreateLoggerWithDateTime(string category)
     {
         return new Logger(new SystemConsole(), new SystemDateProvider(), category);
     }
 
-    public static Logger CreateLoggerWithCategory(string category)
+    public static Logger CreateLoggerWithoutDateTime(string category)
     {
         return new Logger(new SystemConsole(), null, category);
     }
