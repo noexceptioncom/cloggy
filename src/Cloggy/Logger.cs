@@ -31,11 +31,7 @@ public class Logger
     private void Log(string? message, LogLevel logLevel)
     {
         var formattedMessage = FormatMessage(message, logLevel);
-        if (_fileWriter != null)
-        {
-            _fileWriter.WriteLine(formattedMessage);
-        }
-
+        _fileWriter?.WriteLine(formattedMessage);
         _console.WriteLine(formattedMessage);
     }
 

@@ -152,7 +152,9 @@ public class LoggerShould
     public void LogAMessageAsPlainTextToFile()
     {
         var logger = new Logger(_console, _dateTimeProvider, new Category("AnotherCategory"), false, _fileWriter);
+
         logger.LogInformation("otro mensaje");
+        
         _fileWriter.Received().WriteLine("[2023-03-30T21:30:06 INF (AnotherCategory)] otro mensaje");
     }
 }
