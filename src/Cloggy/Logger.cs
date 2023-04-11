@@ -6,7 +6,7 @@ public class Logger
     private readonly IDateTimeProvider? _dateTimeProvider;
     private readonly Category _category;
 
-    public Logger(IConsole console, IDateTimeProvider? dateTimeProvider, Category category)
+    public Logger(IConsole console, IDateTimeProvider? dateTimeProvider, Category category, bool asJson)
     {
         _console = console;
         _dateTimeProvider = dateTimeProvider;
@@ -15,12 +15,12 @@ public class Logger
 
     public static Logger CreateLoggerWithDateTime(string category)
     {
-        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category));
+        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), false);
     }
 
     public static Logger CreateLoggerWithoutDateTime(string category)
     {
-        return new Logger(new SystemConsole(), null, new Category(category));
+        return new Logger(new SystemConsole(), null, new Category(category), false);
     }
 
     private void Log(string? message, LogLevel logLevel) => _console.WriteLine(FormatMessage(message, logLevel));

@@ -15,8 +15,8 @@ public class LoggerShould
     {
         _dateTimeProvider = Substitute.For<IDateTimeProvider>();
         _console = Substitute.For<IConsole>();
-        _loggerWithoutDate = new Logger(_console, null, new Category(Category));
-        _loggerWithDate = new Logger(_console, _dateTimeProvider, new Category(Category));
+        _loggerWithoutDate = new Logger(_console, null, new Category(Category), false);
+        _loggerWithDate = new Logger(_console, _dateTimeProvider, new Category(Category), false);
         _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
     }
 
@@ -90,10 +90,21 @@ public class LoggerShould
     [TestCase("AnotherCategory", "Another message")]
     public void LogMessagesWithCategory(string category, string message)
     {
-        var logger = new Logger(_console, _dateTimeProvider, new Category(category));
+        var logger = new Logger(_console, _dateTimeProvider, new Category(category),false);
         
         logger.LogInformation(message);
         
         _console.Received().WriteLine($"[2023-03-30T21:30:06 INF ({category})] {message}");
+    }
+
+    [Test]
+    public void LogAMessageAsJson()
+    {
+        var logger = new Logger(_console, _dateTimeProvider, new Category("Acategory"), true);
+        
+        logger.LogInformation("hola mundo");
+        
+        _console.Received().WriteLine("""{"timestamp":"2023-03-30T21:30:06","loglevel":"INF","category":"Acategory","message":"hola mundo"}""");
+
     }
 }
