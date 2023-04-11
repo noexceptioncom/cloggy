@@ -151,7 +151,7 @@ public class LoggerShould
     [Test]
     public void LogAMessageAsPlainTextToFile()
     {
-        var logger = new Logger(_console, _dateTimeProvider, new Category("AnotherCategory"), false, _fileWriter);
+        var logger = new Logger(null, _dateTimeProvider, new Category("AnotherCategory"), false, _fileWriter);
 
         logger.LogInformation("otro mensaje");
         

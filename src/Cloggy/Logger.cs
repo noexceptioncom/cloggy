@@ -2,13 +2,13 @@
 
 public class Logger
 {
-    private readonly IConsole _console;
+    private readonly IConsole? _console;
     private readonly IDateTimeProvider _dateTimeProvider;
     private readonly Category _category;
     private readonly bool _asJson;
     private readonly IFileWriter? _fileWriter;
 
-    public Logger(IConsole console, IDateTimeProvider dateTimeProvider, Category category, bool asJson,
+    public Logger(IConsole? console, IDateTimeProvider dateTimeProvider, Category category, bool asJson,
         IFileWriter? fileWriter = null)
     {
         _console = console;
@@ -30,27 +30,21 @@ public class Logger
 
     public static Logger CreateJsonLoggerToFile(string category, string fullPath)
     {
-        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), true,
+        return new Logger(null, new SystemDateProvider(), new Category(category), true,
             new FileWriter(fullPath));
     }
 
     public static Logger CreatePlainTextLoggerToFile(string category, string fullPath)
     {
-        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), false,
+        return new Logger(null, new SystemDateProvider(), new Category(category), false,
             new FileWriter(fullPath));
     }
 
     private void Log(string? message, LogLevel logLevel)
     {
         var formattedMessage = FormatMessage(message, logLevel);
-        if (_fileWriter is not null)
-        {
-            _fileWriter?.WriteLine(formattedMessage);
-        }
-        else
-        {
-            _console.WriteLine(formattedMessage);
-        }
+        _fileWriter?.WriteLine(formattedMessage);
+        _console?.WriteLine(formattedMessage);
     }
 
     public void LogInformation(string? message) => Log(message, LogLevel.INF);
