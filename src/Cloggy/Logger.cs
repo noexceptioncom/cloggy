@@ -27,6 +27,15 @@ public class Logger
     {
         return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), false);
     }
+    public static Logger CreateJsonLoggerToFile(string category)
+    {
+        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), true, new FileWriter(""));
+    }
+
+    public static Logger CreatePlainTextLoggerToFile(string category)
+    {
+        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), false,new FileWriter(""));
+    }
 
     private void Log(string? message, LogLevel logLevel)
     {
