@@ -1,36 +1,50 @@
 ﻿namespace Cloggy;
 
+public class Message
+{
+    public Message(string? message, LogLevel logLevel, DateTime timestamp, Category category)
+    {
+        Text = message;
+        LogLevel = logLevel;
+        Timestamp = timestamp;
+        Category = category;
+    }
+
+    public string? Text { get; private set; }
+    public LogLevel LogLevel { get; private set; }
+    public DateTime Timestamp { get; private set; }
+    public Category Category { get; private set; }
+}
+
 public class MessageFormatter
 {
     private readonly bool _asJson;
-    private readonly Category _category;
 
-    public MessageFormatter(bool asJson, Category category)
+    public MessageFormatter(bool asJson)
     {
         _asJson = asJson;
-        _category = category;
     }
 
-    public string FormatMessage(string? message, LogLevel logLevel, DateTime timestamp)
+    public string FormatMessage(Message message)
     {
         if (_asJson)
         {
-            return FormatMessageAsJson(message, logLevel, timestamp, _category);
+            return FormatMessageAsJson(message);
         }
 
-        return FormatMessageAsPlainText(message, logLevel, timestamp, _category);
+        return FormatMessageAsPlainText(message);
     }
 
-    private string FormatMessageAsPlainText(string? message, LogLevel logLevel, DateTime timestamp, Category category)
+    private string FormatMessageAsPlainText(Message message)
     {
-        var header = string.Join(' ', GetDateTimeFormat(timestamp), logLevel.ToString(), $"({category})").Trim();
-        return $"[{header}] {message}";
+        var header = string.Join(' ', GetDateTimeFormat(message.Timestamp), message.LogLevel.ToString(), $"({message.Category})").Trim();
+        return $"[{header}] {message.Text}";
     }
 
-    private string FormatMessageAsJson(string? message, LogLevel logLevel, DateTime timestamp, Category category)
+    private string FormatMessageAsJson(Message message)
     {
         return
-            $$"""{"timestamp":"{{GetDateTimeFormat(timestamp)}}","logLevel":"{{logLevel}}","category":"{{category}}","message":"{{message}}"}""";
+            $$"""{"timestamp":"{{GetDateTimeFormat(message.Timestamp)}}","logLevel":"{{message.LogLevel}}","category":"{{message.Category}}","message":"{{message.Text}}"}""";
     }
 
     private string GetDateTimeFormat(DateTime timestamp) => timestamp.ToString("s");
