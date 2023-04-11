@@ -14,6 +14,11 @@ public class Logger
         _category = category;
         this.asJson = asJson;
     }
+    
+    public static Logger CreateJsonLoggerWithDateTime(string category)
+    {
+        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), true);
+    }
 
     public static Logger CreateLoggerWithDateTime(string category)
     {
