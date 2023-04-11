@@ -2,13 +2,13 @@
 
 using Cloggy;
 var category = "Category1";
-var logger = Logger.CreateLoggerWithDateTime(category);
+var logger = Logger.CreatePlainTextLogger(category);
 
 logger.LogInformation("Log con fecha");
 logger.LogError("Error Log information");
 logger.LogWarning("Log warning");
 
-var jsonLogger = Logger.CreateJsonLoggerWithDateTime(category);
+var jsonLogger = Logger.CreateJsonLogger(category);
 jsonLogger.LogInformation("Log info");
 jsonLogger.LogError("Log error");
 jsonLogger.LogWarning("Log warning");

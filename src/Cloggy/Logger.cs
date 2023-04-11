@@ -15,12 +15,12 @@ public class Logger
         _asJson = asJson;
     }
     
-    public static Logger CreateJsonLoggerWithDateTime(string category)
+    public static Logger CreateJsonLogger(string category)
     {
         return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), true);
     }
 
-    public static Logger CreateLoggerWithDateTime(string category)
+    public static Logger CreatePlainTextLogger(string category)
     {
         return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), false);
     }
