@@ -21,15 +21,13 @@ public class MessageFormatter
 
     private string FormatMessageAsPlainText(Message message)
     {
-        var header = string.Join(' ', GetDateTimeFormat(message.Timestamp), message.LogLevel.ToString(), $"({message.Category})").Trim();
+        var header = string.Join(' ', message.Timestamp, message.LogLevel, $"({message.Category})").Trim();
         return $"[{header}] {message.Text}";
     }
 
     private string FormatMessageAsJson(Message message)
     {
         return
-            $$"""{"timestamp":"{{GetDateTimeFormat(message.Timestamp)}}","logLevel":"{{message.LogLevel}}","category":"{{message.Category}}","message":"{{message.Text}}"}""";
+            $$"""{"timestamp":"{{message.Timestamp}}","logLevel":"{{message.LogLevel}}","category":"{{message.Category}}","message":"{{message.Text}}"}""";
     }
-
-    private string GetDateTimeFormat(DateTime timestamp) => timestamp.ToString("s");
 }
