@@ -5,14 +5,14 @@ public class Logger
     private readonly IConsole _console;
     private readonly IDateTimeProvider _dateTimeProvider;
     private readonly Category _category;
-    private readonly bool asJson;
+    private readonly bool _asJson;
 
     public Logger(IConsole console, IDateTimeProvider dateTimeProvider, Category category, bool asJson)
     {
         _console = console;
         _dateTimeProvider = dateTimeProvider;
         _category = category;
-        this.asJson = asJson;
+        _asJson = asJson;
     }
     
     public static Logger CreateJsonLoggerWithDateTime(string category)
@@ -35,11 +35,16 @@ public class Logger
 
     private string FormatMessage(string? message, LogLevel logLevel)
     {
-        if (asJson)
+        if (_asJson)
         {
             return FormatMessageAsJson(message, logLevel);
         }
-        
+
+        return FormatMessageAsPlainText(message, logLevel);
+    }
+
+    private string FormatMessageAsPlainText(string? message, LogLevel logLevel)
+    {
         var header = string.Join(' ', GetDateTimeFormat(), logLevel.ToString(), $"({_category})").Trim();
         return $"[{header}] {message}";
     }
@@ -47,7 +52,7 @@ public class Logger
     private string FormatMessageAsJson(string? message, LogLevel logLevel)
     {
         return
-            $$"""{"timestamp":"{{GetDateTimeFormat()}}","loglevel":"{{logLevel.ToString()}}","category":"{{_category.ToString()}}","message":"{{message}}"}""";
+            $$"""{"timestamp":"{{GetDateTimeFormat()}}","loglevel":"{{logLevel}}","category":"{{_category.ToString()}}","message":"{{message}}"}""";
     }
 
     private string GetDateTimeFormat() => _dateTimeProvider.Now().ToString("s");
