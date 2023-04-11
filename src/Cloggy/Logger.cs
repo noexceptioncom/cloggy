@@ -6,13 +6,16 @@ public class Logger
     private readonly IDateTimeProvider _dateTimeProvider;
     private readonly Category _category;
     private readonly bool _asJson;
+    private readonly IFileWriter? _fileWriter;
 
-    public Logger(IConsole console, IDateTimeProvider dateTimeProvider, Category category, bool asJson)
+    public Logger(IConsole console, IDateTimeProvider dateTimeProvider, Category category, bool asJson,
+        IFileWriter? fileWriter = null)
     {
         _console = console;
         _dateTimeProvider = dateTimeProvider;
         _category = category;
         _asJson = asJson;
+        _fileWriter = fileWriter;
     }
     
     public static Logger CreateJsonLogger(string category)
