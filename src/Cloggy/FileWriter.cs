@@ -11,7 +11,7 @@ public class FileWriter : IFileWriter
 
     public void WriteLine(string message)
     {
-        using var streamWriter = new StreamWriter(_filePath);
+        using var streamWriter = new StreamWriter(_filePath,true);
         streamWriter.WriteLine(message);
     }
 }
