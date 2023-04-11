@@ -17,7 +17,7 @@ public class Logger
         _asJson = asJson;
         _fileWriter = fileWriter;
     }
-    
+
     public static Logger CreateJsonLogger(string category)
     {
         return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), true);
@@ -30,19 +30,27 @@ public class Logger
 
     public static Logger CreateJsonLoggerToFile(string category, string fullPath)
     {
-        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), true, new FileWriter(fullPath));
+        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), true,
+            new FileWriter(fullPath));
     }
 
     public static Logger CreatePlainTextLoggerToFile(string category, string fullPath)
     {
-        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), false,new FileWriter(fullPath));
+        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), false,
+            new FileWriter(fullPath));
     }
 
     private void Log(string? message, LogLevel logLevel)
     {
         var formattedMessage = FormatMessage(message, logLevel);
-        _fileWriter?.WriteLine(formattedMessage);
-        _console.WriteLine(formattedMessage);
+        if (_fileWriter is not null)
+        {
+            _fileWriter?.WriteLine(formattedMessage);
+        }
+        else
+        {
+            _console.WriteLine(formattedMessage);
+        }
     }
 
     public void LogInformation(string? message) => Log(message, LogLevel.INF);
