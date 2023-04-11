@@ -38,10 +38,10 @@ public class Logger
         if (asJson)
         {
             return
-                $$"""{"timestamp":"2023-03-30T21:30:06","loglevel":"INF","category":"Acategory","message":"{{message}}"}""";
+                $$"""{"timestamp":"2023-03-30T21:30:06","loglevel":"INF","category":"{{_category.ToString()}}","message":"{{message}}"}""";
         }
         
-        var header = string.Join(' ', GetDateTimeFormat(), logLevel.ToString(), _category.ToString()).Trim();
+        var header = string.Join(' ', GetDateTimeFormat(), logLevel.ToString(), $"({_category})").Trim();
         return $"[{header}] {message}";
     }
 

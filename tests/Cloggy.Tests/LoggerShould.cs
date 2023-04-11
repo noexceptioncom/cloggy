@@ -116,4 +116,14 @@ public class LoggerShould
         
         _console.Received().WriteLine("""{"timestamp":"2023-03-30T21:30:06","loglevel":"INF","category":"Acategory","message":"otro mensaje"}""");
     }
+    
+    [Test]
+    public void LogAMessageAsJsonWithAnotherCategory()
+    {
+        var logger = new Logger(_console, _dateTimeProvider, new Category("AnotherCategory"), true);
+        
+        logger.LogInformation("otro mensaje");
+        
+        _console.Received().WriteLine("""{"timestamp":"2023-03-30T21:30:06","loglevel":"INF","category":"AnotherCategory","message":"otro mensaje"}""");
+    }
 }
