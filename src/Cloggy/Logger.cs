@@ -42,12 +42,17 @@ public class Logger
     {
         if (asJson)
         {
-            return
-                $$"""{"timestamp":"{{GetDateTimeFormat()}}","loglevel":"{{logLevel.ToString()}}","category":"{{_category.ToString()}}","message":"{{message}}"}""";
+            return FormatMessageAsJson(message, logLevel);
         }
         
         var header = string.Join(' ', GetDateTimeFormat(), logLevel.ToString(), $"({_category})").Trim();
         return $"[{header}] {message}";
+    }
+
+    private string FormatMessageAsJson(string? message, LogLevel logLevel)
+    {
+        return
+            $$"""{"timestamp":"{{GetDateTimeFormat()}}","loglevel":"{{logLevel.ToString()}}","category":"{{_category.ToString()}}","message":"{{message}}"}""";
     }
 
     private string GetDateTimeFormat() => HasDateTime ? _dateTimeProvider!.Now().ToString("s") : string.Empty;
