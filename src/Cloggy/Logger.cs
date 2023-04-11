@@ -4,8 +4,6 @@ public class Logger
 {
     private readonly IConsole? _console;
     private readonly IDateTimeProvider _dateTimeProvider;
-    private readonly Category _category;
-    private readonly bool _asJson;
     private readonly IFileWriter? _fileWriter;
     private readonly MessageFormatter _messageFormatter;
 
@@ -14,10 +12,8 @@ public class Logger
     {
         _console = console;
         _dateTimeProvider = dateTimeProvider;
-        _category = category;
-        _asJson = asJson;
         _fileWriter = fileWriter;
-        _messageFormatter = new MessageFormatter(_asJson, _category);
+        _messageFormatter = new MessageFormatter(asJson, category);
     }
 
     private void Log(string? message, LogLevel logLevel)
