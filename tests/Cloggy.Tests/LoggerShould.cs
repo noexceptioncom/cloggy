@@ -6,7 +6,6 @@ public class LoggerShould
 {
     private IConsole _console;
     private Logger _loggerWithDate;
-    private Logger _loggerWithoutDate;
     private IDateTimeProvider _dateTimeProvider;
     private const string Category = "category";
 
@@ -15,7 +14,6 @@ public class LoggerShould
     {
         _dateTimeProvider = Substitute.For<IDateTimeProvider>();
         _console = Substitute.For<IConsole>();
-        _loggerWithoutDate = new Logger(_console, null, new Category(Category), false);
         _loggerWithDate = new Logger(_console, _dateTimeProvider, new Category(Category), false);
         _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
     }
@@ -23,25 +21,25 @@ public class LoggerShould
     [Test]
     public void LogAnEntryInConsole()
     {
-        _loggerWithoutDate.LogInformation(string.Empty);
+        _loggerWithDate.LogInformation(string.Empty);
 
-        _console.Received().WriteLine("[INF (category)] ");
+        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (category)] ");
     }
 
     [Test]
     public void LogAnotherWordInConsole()
     {
-        _loggerWithoutDate.LogInformation("juanvi");
+        _loggerWithDate.LogInformation("juanvi");
 
-        _console.Received().WriteLine("[INF (category)] juanvi");
+        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (category)] juanvi");
     }
 
     [Test]
     public void LogEmptyWhenPassingNullMessage()
     {
-        _loggerWithoutDate.LogInformation(null);
+        _loggerWithDate.LogInformation(null);
 
-        _console.Received().WriteLine("[INF (category)] ");
+        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (category)] ");
     }
 
     [Test]

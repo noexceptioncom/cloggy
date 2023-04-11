@@ -25,11 +25,6 @@ public class Logger
         return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), false);
     }
 
-    public static Logger CreateLoggerWithoutDateTime(string category)
-    {
-        return new Logger(new SystemConsole(), null, new Category(category), false);
-    }
-
     private void Log(string? message, LogLevel logLevel) => _console.WriteLine(FormatMessage(message, logLevel));
 
     public void LogInformation(string? message) => Log(message, LogLevel.INF);

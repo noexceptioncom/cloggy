@@ -8,9 +8,6 @@ logger.LogInformation("Log con fecha");
 logger.LogError("Error Log information");
 logger.LogWarning("Log warning");
 
-var loggerWithoutDate = Logger.CreateLoggerWithoutDateTime(category);
-loggerWithoutDate.LogInformation("Log simple");
-
 var jsonLogger = Logger.CreateJsonLoggerWithDateTime(category);
 jsonLogger.LogInformation("Log info");
 jsonLogger.LogError("Log error");
