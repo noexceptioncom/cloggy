@@ -27,14 +27,15 @@ public class Logger
     {
         return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), false);
     }
-    public static Logger CreateJsonLoggerToFile(string category)
+
+    public static Logger CreateJsonLoggerToFile(string category, string fullPath)
     {
-        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), true, new FileWriter(""));
+        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), true, new FileWriter(fullPath));
     }
 
-    public static Logger CreatePlainTextLoggerToFile(string category)
+    public static Logger CreatePlainTextLoggerToFile(string category, string fullPath)
     {
-        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), false,new FileWriter(""));
+        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), false,new FileWriter(fullPath));
     }
 
     private void Log(string? message, LogLevel logLevel)
