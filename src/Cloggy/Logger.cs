@@ -52,7 +52,7 @@ public class Logger
     private string FormatMessageAsJson(string? message, LogLevel logLevel)
     {
         return
-            $$"""{"timestamp":"{{GetDateTimeFormat()}}","loglevel":"{{logLevel}}","category":"{{_category.ToString()}}","message":"{{message}}"}""";
+            $$"""{"timestamp":"{{GetDateTimeFormat()}}","logLevel":"{{logLevel}}","category":"{{_category}}","message":"{{message}}"}""";
     }
 
     private string GetDateTimeFormat() => _dateTimeProvider.Now().ToString("s");
