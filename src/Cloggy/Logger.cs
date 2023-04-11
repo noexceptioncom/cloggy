@@ -3,11 +3,11 @@
 public class Logger
 {
     private readonly IConsole _console;
-    private readonly IDateTimeProvider? _dateTimeProvider;
+    private readonly IDateTimeProvider _dateTimeProvider;
     private readonly Category _category;
     private readonly bool asJson;
 
-    public Logger(IConsole console, IDateTimeProvider? dateTimeProvider, Category category, bool asJson)
+    public Logger(IConsole console, IDateTimeProvider dateTimeProvider, Category category, bool asJson)
     {
         _console = console;
         _dateTimeProvider = dateTimeProvider;
@@ -50,7 +50,5 @@ public class Logger
             $$"""{"timestamp":"{{GetDateTimeFormat()}}","loglevel":"{{logLevel.ToString()}}","category":"{{_category.ToString()}}","message":"{{message}}"}""";
     }
 
-    private string GetDateTimeFormat() => HasDateTime ? _dateTimeProvider!.Now().ToString("s") : string.Empty;
-
-    private bool HasDateTime => _dateTimeProvider is not null;
+    private string GetDateTimeFormat() => _dateTimeProvider.Now().ToString("s");
 }
