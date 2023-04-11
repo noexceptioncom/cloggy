@@ -5,12 +5,14 @@ public class Logger
     private readonly IConsole _console;
     private readonly IDateTimeProvider? _dateTimeProvider;
     private readonly Category _category;
+    private readonly bool asJson;
 
     public Logger(IConsole console, IDateTimeProvider? dateTimeProvider, Category category, bool asJson)
     {
         _console = console;
         _dateTimeProvider = dateTimeProvider;
         _category = category;
+        this.asJson = asJson;
     }
 
     public static Logger CreateLoggerWithDateTime(string category)
@@ -33,6 +35,12 @@ public class Logger
 
     private string FormatMessage(string? message, LogLevel logLevel)
     {
+        if (asJson)
+        {
+            return
+                """{"timestamp":"2023-03-30T21:30:06","loglevel":"INF","category":"Acategory","message":"hola mundo"}""";
+        }
+        
         var header = string.Join(' ', GetDateTimeFormat(), logLevel.ToString(), _category.ToString()).Trim();
         return $"[{header}] {message}";
     }

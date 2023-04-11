@@ -105,6 +105,5 @@ public class LoggerShould
         logger.LogInformation("hola mundo");
         
         _console.Received().WriteLine("""{"timestamp":"2023-03-30T21:30:06","loglevel":"INF","category":"Acategory","message":"hola mundo"}""");
-
     }
 }
