@@ -28,7 +28,16 @@ public class Logger
         return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), false);
     }
 
-    private void Log(string? message, LogLevel logLevel) => _console.WriteLine(FormatMessage(message, logLevel));
+    private void Log(string? message, LogLevel logLevel)
+    {
+        var formattedMessage = FormatMessage(message, logLevel);
+        if (_fileWriter != null)
+        {
+            _fileWriter.WriteLine(formattedMessage);
+        }
+
+        _console.WriteLine(formattedMessage);
+    }
 
     public void LogInformation(string? message) => Log(message, LogLevel.INF);
 
