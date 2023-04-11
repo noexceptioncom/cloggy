@@ -12,3 +12,6 @@ var jsonLogger = Logger.CreateJsonLogger(category);
 jsonLogger.LogInformation("Log info");
 jsonLogger.LogError("Log error");
 jsonLogger.LogWarning("Log warning");
+
+var plainTextLogger = Logger.CreatePlainTextLoggerToFile(category, @".\plainTextLogger.txt");
+plainTextLogger.LogInformation("Log Info to File");
