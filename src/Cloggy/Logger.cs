@@ -38,7 +38,7 @@ public class Logger
         if (asJson)
         {
             return
-                """{"timestamp":"2023-03-30T21:30:06","loglevel":"INF","category":"Acategory","message":"hola mundo"}""";
+                $$"""{"timestamp":"2023-03-30T21:30:06","loglevel":"INF","category":"Acategory","message":"{{message}}"}""";
         }
         
         var header = string.Join(' ', GetDateTimeFormat(), logLevel.ToString(), _category.ToString()).Trim();
