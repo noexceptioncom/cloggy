@@ -21,4 +21,23 @@ public class Category
     {
         return $"{_name}";
     }
+
+    private bool Equals(Category other)
+    {
+        return _name == other._name;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj.GetType() != this.GetType()) return false;
+        return Equals((Category)obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return _name.GetHashCode();
+    }
+
 }
