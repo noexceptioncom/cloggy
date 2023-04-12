@@ -1,3 +1,4 @@
+using FluentAssertions;
 using NSubstitute;
 
 namespace Cloggy.Tests;
@@ -8,6 +9,7 @@ public class LoggerShould
     private Logger _loggerWithDate;
     private IDateTimeProvider _dateTimeProvider;
     private IFileWriter _fileWriter;
+    private readonly MessageFormatterShould _messageFormatterShould = new MessageFormatterShould();
     private const string Category = "category";
 
     [SetUp]
@@ -18,30 +20,6 @@ public class LoggerShould
         _fileWriter = Substitute.For<IFileWriter>();
         _loggerWithDate = new Logger(_console, _dateTimeProvider, new Category(Category), false);
         _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
-    }
-
-    [Test]
-    public void LogAnEntryInConsole()
-    {
-        _loggerWithDate.LogInformation(string.Empty);
-
-        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (category)] ");
-    }
-
-    [Test]
-    public void LogAnotherWordInConsole()
-    {
-        _loggerWithDate.LogInformation("juanvi");
-
-        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (category)] juanvi");
-    }
-
-    [Test]
-    public void LogEmptyWhenPassingNullMessage()
-    {
-        _loggerWithDate.LogInformation(null);
-
-        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (category)] ");
     }
 
     [Test]
