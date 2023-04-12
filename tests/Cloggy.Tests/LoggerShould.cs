@@ -23,63 +23,12 @@ public class LoggerShould
     }
 
     [Test]
-    public void LogAMessageAsJson()
-    {
-        var logger = new Logger(_console, _dateTimeProvider, new Category("Acategory"), true);
-        
-        logger.LogInformation("hola mundo");
-        
-        _console.Received().WriteLine("""{"timestamp":"2023-03-30T21:30:06","logLevel":"INF","category":"Acategory","message":"hola mundo"}""");
-    }
-    
-    [Test]
-    public void LogAMessageAsJsonWithAnotherMessage()
-    {
-        var logger = new Logger(_console, _dateTimeProvider, new Category("Acategory"), true);
-        
-        logger.LogInformation("otro mensaje");
-        
-        _console.Received().WriteLine("""{"timestamp":"2023-03-30T21:30:06","logLevel":"INF","category":"Acategory","message":"otro mensaje"}""");
-    }
-    
-    [Test]
-    public void LogAMessageAsJsonWithAnotherCategory()
-    {
-        var logger = new Logger(_console, _dateTimeProvider, new Category("AnotherCategory"), true);
-        
-        logger.LogInformation("otro mensaje");
-        
-        _console.Received().WriteLine("""{"timestamp":"2023-03-30T21:30:06","logLevel":"INF","category":"AnotherCategory","message":"otro mensaje"}""");
-    }
-    
-    [Test]
-    public void LogAMessageAsJsonWithAnotherlogLevel()
-    {
-        var logger = new Logger(_console, _dateTimeProvider, new Category("AnotherCategory"), true);
-        
-        logger.LogWarning("otro mensaje");
-        
-        _console.Received().WriteLine("""{"timestamp":"2023-03-30T21:30:06","logLevel":"WRN","category":"AnotherCategory","message":"otro mensaje"}""");
-    }
-    
-    [Test]
-    public void LogAMessageAsJsonWithCustomDate()
-    {
-        _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-04T09:00:06"));
-        var logger = new Logger(_console, _dateTimeProvider, new Category("AnotherCategory"), true);
-        
-        logger.LogWarning("otro mensaje");
-        
-        _console.Received().WriteLine("""{"timestamp":"2023-03-04T09:00:06","logLevel":"WRN","category":"AnotherCategory","message":"otro mensaje"}""");
-    }
-
-    [Test]
     public void LogAMessageAsPlainTextToFile()
     {
         var logger = new Logger(null, _dateTimeProvider, new Category("AnotherCategory"), false, _fileWriter);
 
         logger.LogInformation("otro mensaje");
-        
+
         _fileWriter.Received().WriteLine("[2023-03-30T21:30:06 INF (AnotherCategory)] otro mensaje");
     }
 
@@ -89,7 +38,7 @@ public class LoggerShould
         var logger = new Logger(_console, _dateTimeProvider, new Category("AnotherCategory"), false, _fileWriter);
 
         logger.LogInformation("otro mensaje");
-        
+
         _fileWriter.Received().WriteLine("[2023-03-30T21:30:06 INF (AnotherCategory)] otro mensaje");
         _console.Received().WriteLine("[2023-03-30T21:30:06 INF (AnotherCategory)] otro mensaje");
     }

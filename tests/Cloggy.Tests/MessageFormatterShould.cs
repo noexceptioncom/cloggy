@@ -5,11 +5,13 @@ namespace Cloggy.Tests;
 public class MessageFormatterShould
 {
     private MessageFormatter _plainTextMessageFormatter;
+    private MessageFormatter _jsonMessageFormatter;
 
     [SetUp]
     public void SetUp()
     {
         _plainTextMessageFormatter = new MessageFormatter(false);
+        _jsonMessageFormatter = new MessageFormatter(true);
     }
 
     [Test]
@@ -63,6 +65,62 @@ public class MessageFormatterShould
     {
         var result = _plainTextMessageFormatter.FormatMessage(new Message("hola mundo", LogLevel.INF, DateTime.Parse(timestamp), new Category("category")));
         
+        result.Should().Be(expectedResult);
+    }
+
+    [Test]
+    public void FormatMessageAsJson()
+    {
+        var result = _jsonMessageFormatter.FormatMessage(new Message("hola mundo", LogLevel.INF,
+            DateTime.Parse("2023-03-30T21:30:06"), new Category("Acategory")));
+
+        var expectedResult =
+            """{"timestamp":"2023-03-30T21:30:06","logLevel":"INF","category":"Acategory","message":"hola mundo"}""";
+        result.Should().Be(expectedResult);
+    }
+
+    [Test]
+    public void FormatMessageAsJsonWithAnotherMessage()
+    {
+        var result = _jsonMessageFormatter.FormatMessage(new Message("otro mensaje", LogLevel.INF,
+            DateTime.Parse("2023-03-30T21:30:06"), new Category("Acategory")));
+        
+        var expectedResult =
+            """{"timestamp":"2023-03-30T21:30:06","logLevel":"INF","category":"Acategory","message":"otro mensaje"}""";
+        result.Should().Be(expectedResult);
+    }
+
+    [Test]
+    public void FormatMessageAsJsonWithAnotherCategory()
+    {
+        var result = _jsonMessageFormatter.FormatMessage(new Message("otro mensaje", LogLevel.INF,
+            DateTime.Parse("2023-03-30T21:30:06"), new Category("AnotherCategory")));
+        
+        
+        var expectedResult =
+            """{"timestamp":"2023-03-30T21:30:06","logLevel":"INF","category":"AnotherCategory","message":"otro mensaje"}""";
+        result.Should().Be(expectedResult);
+    }
+
+    [Test]
+    public void FormatMessageAsJsonWithAnotherLogLevel()
+    {
+        var result = _jsonMessageFormatter.FormatMessage(new Message("otro mensaje", LogLevel.WRN,
+            DateTime.Parse("2023-03-30T21:30:06"), new Category("AnotherCategory")));
+        
+        var expectedResult =
+            """{"timestamp":"2023-03-30T21:30:06","logLevel":"WRN","category":"AnotherCategory","message":"otro mensaje"}""";
+        result.Should().Be(expectedResult);
+    }
+
+    [Test]
+    public void FormatMessageAsJsonWithCustomDate()
+    {
+        var result = _jsonMessageFormatter.FormatMessage(new Message("otro mensaje", LogLevel.WRN,
+            DateTime.Parse("2023-03-04T21:30:06"), new Category("AnotherCategory")));
+        
+        var expectedResult =
+            """{"timestamp":"2023-03-04T21:30:06","logLevel":"WRN","category":"AnotherCategory","message":"otro mensaje"}""";
         result.Should().Be(expectedResult);
     }
 }
