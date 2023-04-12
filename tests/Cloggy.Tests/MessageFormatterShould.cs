@@ -157,4 +157,15 @@ public class MessageFormatterShould
 
         result.Should().Be(expectedResult);
     }
+
+    [Test]
+    public void FormatCustomDateAsXML()
+    {
+        var result = new MessageFormatter(false,true).FormatMessage(new Message("otro mensaje", LogLevel.WRN,
+            DateTime.Parse("2023-04-04T21:30:06"), new Category("ACategory")));
+
+        var expectedResult = """<log timestamp="2023-04-04T21:30:06" loglevel="WRN" category="ACategory" message="otro mensaje"></log>""";
+
+        result.Should().Be(expectedResult);
+    }
 }
