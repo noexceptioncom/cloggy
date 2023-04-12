@@ -10,8 +10,8 @@ public class MessageFormatterShould
     [SetUp]
     public void SetUp()
     {
-        _plainTextMessageFormatter = new MessageFormatter(false,false);
-        _jsonMessageFormatter = new MessageFormatter(true,false);
+        _plainTextMessageFormatter = new MessageFormatter(Format.PlainText);
+        _jsonMessageFormatter = new MessageFormatter(Format.Json);
     }
 
     [TestCase("", "[2023-03-30T21:30:06 INF (category)] ")]
@@ -117,7 +117,7 @@ public class MessageFormatterShould
     [Test]
     public void FormatMessageAsXML()
     {
-        var result = new MessageFormatter(false,true).FormatMessage(new Message("mensaje", LogLevel.INF,
+        var result = new MessageFormatter(Format.Xml).FormatMessage(new Message("mensaje", LogLevel.INF,
             DateTime.Parse("2023-03-04T21:30:06"), new Category("category")));
 
         var expectedResult = """<log timestamp="2023-03-04T21:30:06" loglevel="INF" category="category" message="mensaje"></log>""";
@@ -128,7 +128,7 @@ public class MessageFormatterShould
     [Test]
     public void FormatOtherMessageAsXML()
     {
-        var result = new MessageFormatter(false,true).FormatMessage(new Message("otro mensaje", LogLevel.INF,
+        var result = new MessageFormatter(Format.Xml).FormatMessage(new Message("otro mensaje", LogLevel.INF,
             DateTime.Parse("2023-03-04T21:30:06"), new Category("category")));
 
         var expectedResult = """<log timestamp="2023-03-04T21:30:06" loglevel="INF" category="category" message="otro mensaje"></log>""";
@@ -139,7 +139,7 @@ public class MessageFormatterShould
     [Test]
     public void FormatAnotherCategoryAsXML()
     {
-        var result = new MessageFormatter(false,true).FormatMessage(new Message("otro mensaje", LogLevel.INF,
+        var result = new MessageFormatter(Format.Xml).FormatMessage(new Message("otro mensaje", LogLevel.INF,
             DateTime.Parse("2023-03-04T21:30:06"), new Category("ACategory")));
 
         var expectedResult = """<log timestamp="2023-03-04T21:30:06" loglevel="INF" category="ACategory" message="otro mensaje"></log>""";
@@ -150,7 +150,7 @@ public class MessageFormatterShould
     [Test]
     public void FormatAnotherLogLevelAsXML()
     {
-        var result = new MessageFormatter(false,true).FormatMessage(new Message("otro mensaje", LogLevel.WRN,
+        var result = new MessageFormatter(Format.Xml).FormatMessage(new Message("otro mensaje", LogLevel.WRN,
             DateTime.Parse("2023-03-04T21:30:06"), new Category("ACategory")));
 
         var expectedResult = """<log timestamp="2023-03-04T21:30:06" loglevel="WRN" category="ACategory" message="otro mensaje"></log>""";
@@ -161,7 +161,7 @@ public class MessageFormatterShould
     [Test]
     public void FormatCustomDateAsXML()
     {
-        var result = new MessageFormatter(false,true).FormatMessage(new Message("otro mensaje", LogLevel.WRN,
+        var result = new MessageFormatter(Format.Xml).FormatMessage(new Message("otro mensaje", LogLevel.WRN,
             DateTime.Parse("2023-04-04T21:30:06"), new Category("ACategory")));
 
         var expectedResult = """<log timestamp="2023-04-04T21:30:06" loglevel="WRN" category="ACategory" message="otro mensaje"></log>""";

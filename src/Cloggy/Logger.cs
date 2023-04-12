@@ -9,7 +9,7 @@ public class Logger
     private readonly Memory? _memory;
     private readonly MessageFormatter _messageFormatter;
 
-    public Logger(IConsole? console, IDateTimeProvider dateTimeProvider, Category category, bool asJson,
+    public Logger(IConsole? console, IDateTimeProvider dateTimeProvider, Category category, Format format,
         IFileWriter? fileWriter = null, Memory? memory = null)
     {
         _console = console;
@@ -17,7 +17,7 @@ public class Logger
         _category = category;
         _fileWriter = fileWriter;
         _memory = memory;
-        _messageFormatter = new MessageFormatter(asJson, false);
+        _messageFormatter = new MessageFormatter(format);
     }
 
     private void Log(string? message, LogLevel logLevel)

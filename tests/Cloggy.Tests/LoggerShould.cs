@@ -30,7 +30,7 @@ namespace Cloggy.Tests
         [Test]
         public void LogAMessageAsPlainToConsole()
         {
-            var logger = new Logger(_console, _dateTimeProvider, _category, false, null, null);
+            var logger = new Logger(_console, _dateTimeProvider, _category, Format.PlainText, null, null);
 
             logger.LogInformation(_otroMensaje);
 
@@ -40,7 +40,7 @@ namespace Cloggy.Tests
         [Test]
         public void LogAMessageAsPlainTextToFile()
         {
-            var logger = new Logger(null, _dateTimeProvider, _category, false, _fileWriter,null);
+            var logger = new Logger(null, _dateTimeProvider, _category, Format.PlainText, _fileWriter,null);
 
             logger.LogInformation(_otroMensaje);
 
@@ -50,7 +50,7 @@ namespace Cloggy.Tests
         [Test]
         public void LogAMessageAsPlainTextToFileAndConsole()
         {
-            var logger = new Logger(_console, _dateTimeProvider, _category, false, _fileWriter,null);
+            var logger = new Logger(_console, _dateTimeProvider, _category, Format.PlainText, _fileWriter,null);
 
             logger.LogInformation(_otroMensaje);
 
@@ -61,7 +61,7 @@ namespace Cloggy.Tests
         [Test]
         public void SaveAMessageInMemory()
         {
-            var logger = new Logger(null, _dateTimeProvider, _category, false, null, _memory);
+            var logger = new Logger(null, _dateTimeProvider, _category, Format.PlainText, null, _memory);
             var expectedMessage = new Message("other message", LogLevel.WRN, DateTime.Parse("2023-03-30T21:30:06"),
                 _category);
             logger.LogWarning("other message");

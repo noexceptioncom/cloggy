@@ -2,23 +2,21 @@
 
 public class MessageFormatter
 {
-    private readonly bool _asJson;
-    private readonly bool _asXml;
+    private readonly Format _format;
 
-    public MessageFormatter(bool asJson, bool asXML)
+    public MessageFormatter(Format format)
     {
-        _asJson = asJson;
-        _asXml = asXML;
+        _format = format;
     }
 
     public string FormatMessage(Message message)
     {
-        if (_asJson)
+        if (_format == Format.Json)
         {
             return FormatMessageAsJson(message);
         }
 
-        if (_asXml)
+        if (_format == Format.Xml)
         {
             return FormatMessageAsXML(message);
         }
