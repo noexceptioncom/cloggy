@@ -35,4 +35,16 @@ public class LoggerFactory
         return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), false,
             new FileWriter(fullPath));
     }
+    
+    public static Logger CreatePlainTextLoggerInMemory(string category)
+    {
+        return new Logger(null, new SystemDateProvider(), new Category(category), false,
+            null, new Memory());
+    }
+    
+    public static Logger CreateJsonLoggerInMemory(string category)
+    {
+        return new Logger(null, new SystemDateProvider(), new Category(category), true,
+            null, new Memory());
+    }
 }

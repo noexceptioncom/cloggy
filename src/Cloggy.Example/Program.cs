@@ -28,3 +28,11 @@ plainTextLoggerToFileAndConsole.LogInformation("Log Info to File and Console sec
 var jsonLoggerToFileAndConsole = LoggerFactory.CreateJsonLoggerToFileAndConsole(category, @".\plainTextLogger.json");
 jsonLoggerToFileAndConsole.LogInformation("Log Json Info to File and Console");
 jsonLoggerToFileAndConsole.LogInformation("Log Json Info to File and Console second line");
+
+var plainTextLoggerInMemory = LoggerFactory.CreatePlainTextLoggerInMemory(category);
+plainTextLoggerInMemory.LogInformation("Log Info in Memory");
+plainTextLoggerInMemory.LogInformation("Log Info in Memory second Line");
+
+var jsonLoggerInMemory = LoggerFactory.CreateJsonLoggerInMemory(category);
+jsonLoggerInMemory.LogInformation("Log Json Info in Memory");
+jsonLoggerInMemory.LogInformation("Log Json Info in Memory second Line");
