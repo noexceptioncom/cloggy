@@ -20,11 +20,16 @@ public class MessageFormatter
 
         if (_asXml)
         {
-            return
-                $$"""<log timestamp="{{message.Timestamp}}" loglevel="{{message.LogLevel}}" category="{{message.Category}}" message="{{message.Text}}"></log>""";
+            return FormatMessageAsXML(message);
         }
 
         return FormatMessageAsPlainText(message);
+    }
+
+    private static string FormatMessageAsXML(Message message)
+    {
+        return
+            $$"""<log timestamp="{{message.Timestamp}}" loglevel="{{message.LogLevel}}" category="{{message.Category}}" message="{{message.Text}}"></log>""";
     }
 
     private string FormatMessageAsPlainText(Message message)
