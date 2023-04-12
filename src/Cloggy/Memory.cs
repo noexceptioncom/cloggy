@@ -6,4 +6,9 @@ public class Memory
     {
         throw new NotImplementedException();
     }
+
+    public IEnumerable<Message> ReadAll()
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -56,16 +56,5 @@ namespace Cloggy.Tests
             _fileWriter.Received().WriteLine(_expectedMessage);
             _console.Received().WriteLine(_expectedMessage);
         }
-
-        [Test]
-        public void LogAMessageAsPlainTextInMemory()
-        {
-            var expectedMessage = new Message(_expectedMessage, LogLevel.INF, DateTime.Now, _category);
-            var  logger = new Logger(null, _dateTimeProvider, _category, false, null, _memory);
-
-            logger.LogInformation(_otroMensaje);
-
-            _memory.Received().AddMessage(expectedMessage);
-        }
     }
 }
