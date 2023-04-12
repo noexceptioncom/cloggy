@@ -55,4 +55,14 @@ public class MessageFormatterShould
         
         result.Should().Be(expectedResult);
     }
+
+    [TestCase("2023-03-30T06:30:06", "[2023-03-30T06:30:06 INF (category)] hola mundo")]
+    [TestCase("2023-03-30T14:30:06", "[2023-03-30T14:30:06 INF (category)] hola mundo")]
+    [TestCase("2023-03-30T21:30:06", "[2023-03-30T21:30:06 INF (category)] hola mundo")]
+    public void FormatTimestamp(string timestamp, string expectedResult)
+    {
+        var result = _plainTextMessageFormatter.FormatMessage(new Message("hola mundo", LogLevel.INF, DateTime.Parse(timestamp), new Category("category")));
+        
+        result.Should().Be(expectedResult);
+    }
 }

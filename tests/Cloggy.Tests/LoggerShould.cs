@@ -23,47 +23,6 @@ public class LoggerShould
     }
 
     [Test]
-    public void LogDateTimeWithEveryMessage()
-    {
-        _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T09:00:06"));
-        _loggerWithDate.LogInformation("hola mundo");
-
-        _console.Received().WriteLine("[2023-03-30T09:00:06 INF (category)] hola mundo");
-    }
-
-    [Test]
-    public void LogDateTimeWithEveryMessageAtNight()
-    {
-        _loggerWithDate.LogInformation("hola mundo");
-
-        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (category)] hola mundo");
-    }
-
-    [Test]
-    public void LogAnEntryWithInformationAslogLevel()
-    {
-        _loggerWithDate.LogInformation("hola mundo");
-
-        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (category)] hola mundo");
-    }
-
-    [Test]
-    public void LogAnEntryWithWarningAsLogLevel()
-    {
-        _loggerWithDate.LogWarning("hola mundo");
-
-        _console.Received().WriteLine("[2023-03-30T21:30:06 WRN (category)] hola mundo");
-    }
-
-    [Test]
-    public void LogAnEntryWithErrorAsLogLevel()
-    {
-        _loggerWithDate.LogError("hola mundo");
-
-        _console.Received().WriteLine("[2023-03-30T21:30:06 ERR (category)] hola mundo");
-    }
-
-    [Test]
     public void LogAMessageAsJson()
     {
         var logger = new Logger(_console, _dateTimeProvider, new Category("Acategory"), true);
