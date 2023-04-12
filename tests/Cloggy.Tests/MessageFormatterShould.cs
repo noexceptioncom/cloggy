@@ -117,9 +117,11 @@ public class MessageFormatterShould
     [Test]
     public void FormatMessageAsXML()
     {
-        var result = new MessageFormatter(false,true);
+        var result = new MessageFormatter(false,true).FormatMessage(new Message("mensaje", LogLevel.INF,
+            DateTime.Parse("2023-03-04T21:30:06"), new Category("category")));
+
         var expectedResult = """<log timestamp="2023-03-04T21:30:06" loglevel="INF" category="category" message="mensaje"></log>""";
-        
+
         result.Should().Be(expectedResult);
     }
 }

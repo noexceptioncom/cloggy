@@ -18,6 +18,12 @@ public class MessageFormatter
             return FormatMessageAsJson(message);
         }
 
+        if (_asXml)
+        {
+            return
+                """<log timestamp="2023-03-04T21:30:06" loglevel="INF" category="category" message="mensaje"></log>""";
+        }
+
         return FormatMessageAsPlainText(message);
     }
 
