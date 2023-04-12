@@ -10,8 +10,8 @@ public class MessageFormatterShould
     [SetUp]
     public void SetUp()
     {
-        _plainTextMessageFormatter = new MessageFormatter(false);
-        _jsonMessageFormatter = new MessageFormatter(true);
+        _plainTextMessageFormatter = new MessageFormatter(false,false);
+        _jsonMessageFormatter = new MessageFormatter(true,false);
     }
 
     [TestCase("", "[2023-03-30T21:30:06 INF (category)] ")]
@@ -111,6 +111,15 @@ public class MessageFormatterShould
 
         var expectedResult =
             """{"timestamp":"2023-03-04T21:30:06","logLevel":"WRN","category":"AnotherCategory","message":"otro mensaje"}""";
+        result.Should().Be(expectedResult);
+    }
+
+    [Test]
+    public void FormatMessageAsXML()
+    {
+        var result = new MessageFormatter(false,true);
+        var expectedResult = """<log timestamp="2023-03-04T21:30:06" loglevel="INF" category="category" message="mensaje"></log>""";
+        
         result.Should().Be(expectedResult);
     }
 }

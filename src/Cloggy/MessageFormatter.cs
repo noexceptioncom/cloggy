@@ -3,10 +3,12 @@
 public class MessageFormatter
 {
     private readonly bool _asJson;
+    private readonly bool _asXml;
 
-    public MessageFormatter(bool asJson)
+    public MessageFormatter(bool asJson, bool asXML)
     {
         _asJson = asJson;
+        _asXml = asXML;
     }
 
     public string FormatMessage(Message message)

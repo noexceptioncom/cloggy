@@ -17,7 +17,7 @@ public class Logger
         _category = category;
         _fileWriter = fileWriter;
         _memory = memory;
-        _messageFormatter = new MessageFormatter(asJson);
+        _messageFormatter = new MessageFormatter(asJson, false);
     }
 
     private void Log(string? message, LogLevel logLevel)
