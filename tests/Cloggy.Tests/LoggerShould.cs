@@ -1,3 +1,4 @@
+using FluentAssertions;
 using NSubstitute;
 
 namespace Cloggy.Tests
@@ -55,6 +56,18 @@ namespace Cloggy.Tests
 
             _fileWriter.Received().WriteLine(_expectedMessage);
             _console.Received().WriteLine(_expectedMessage);
+        }
+        
+        [Test]
+        public void SaveAMessageInMemory()
+        {
+            var logger = new Logger(null, _dateTimeProvider, _category, false, null, _memory);
+            var expectedMessage = new Message("other message", LogLevel.WRN, DateTime.Parse("2023-03-30T21:30:06"),
+                _category);
+            logger.LogWarning("other message");
+
+            var storedMessage = _memory.ReadAll().First();
+            storedMessage.Should().Be(expectedMessage);
         }
     }
 }
