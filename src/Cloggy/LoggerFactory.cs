@@ -36,15 +36,9 @@ public class LoggerFactory
             new FileWriter(fullPath));
     }
     
-    public static Logger CreatePlainTextLoggerInMemory(string category)
+    public static Logger CreateLoggerInMemory(string category)
     {
         return new Logger(null, new SystemDateProvider(), new Category(category), false,
-            null, new Memory());
-    }
-    
-    public static Logger CreateJsonLoggerInMemory(string category)
-    {
-        return new Logger(null, new SystemDateProvider(), new Category(category), true,
             null, new Memory());
     }
 }

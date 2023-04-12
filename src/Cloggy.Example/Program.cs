@@ -29,10 +29,6 @@ var jsonLoggerToFileAndConsole = LoggerFactory.CreateJsonLoggerToFileAndConsole(
 jsonLoggerToFileAndConsole.LogInformation("Log Json Info to File and Console");
 jsonLoggerToFileAndConsole.LogInformation("Log Json Info to File and Console second line");
 
-var plainTextLoggerInMemory = LoggerFactory.CreatePlainTextLoggerInMemory(category);
+var plainTextLoggerInMemory = LoggerFactory.CreateLoggerInMemory(category);
 plainTextLoggerInMemory.LogInformation("Log Info in Memory");
 plainTextLoggerInMemory.LogInformation("Log Info in Memory second Line");
-
-var jsonLoggerInMemory = LoggerFactory.CreateJsonLoggerInMemory(category);
-jsonLoggerInMemory.LogInformation("Log Json Info in Memory");
-jsonLoggerInMemory.LogInformation("Log Json Info in Memory second Line");
