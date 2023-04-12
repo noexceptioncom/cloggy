@@ -6,23 +6,27 @@ public class Logger
     private readonly IDateTimeProvider _dateTimeProvider;
     private readonly Category _category;
     private readonly IFileWriter? _fileWriter;
+    private readonly Memory? _memory;
     private readonly MessageFormatter _messageFormatter;
 
     public Logger(IConsole? console, IDateTimeProvider dateTimeProvider, Category category, bool asJson,
-        IFileWriter? fileWriter = null)
+        IFileWriter? fileWriter = null, Memory? memory = null)
     {
         _console = console;
         _dateTimeProvider = dateTimeProvider;
         _category = category;
         _fileWriter = fileWriter;
+        _memory = memory;
         _messageFormatter = new MessageFormatter(asJson);
     }
 
     private void Log(string? message, LogLevel logLevel)
     {
-        var formattedMessage = _messageFormatter.FormatMessage(new Message(message, logLevel, _dateTimeProvider.Now(), _category));
+        var messageObject = new Message(message, logLevel, _dateTimeProvider.Now(), _category);
+        var formattedMessage = _messageFormatter.FormatMessage(messageObject);
         _fileWriter?.WriteLine(formattedMessage);
         _console?.WriteLine(formattedMessage);
+        _memory?.AddMessage(messageObject);
     }
 
     public void LogInformation(string? message) => Log(message, LogLevel.INF);
