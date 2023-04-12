@@ -35,4 +35,14 @@ public class MessageFormatterShould
 
         message.Should().Be("[2023-03-30T21:30:06 INF (category)] ");
     }
+
+    [TestCase("ACategory", "A message")]
+    [TestCase("OtherCategory", "Other message")]
+    [TestCase("AnotherCategory", "Another message")]
+    public void FormatCategories(string category, string message)
+    {
+        var result = _plainTextMessageFormatter.FormatMessage(new Message(message, LogLevel.INF, DateTime.Parse("2023-03-30T21:30:06"), new Category(category)));
+
+        result.Should().Be($"[2023-03-30T21:30:06 INF ({category})] {message}");
+    }
 }

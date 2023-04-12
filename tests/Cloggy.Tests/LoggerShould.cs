@@ -63,18 +63,6 @@ public class LoggerShould
         _console.Received().WriteLine("[2023-03-30T21:30:06 ERR (category)] hola mundo");
     }
 
-    [TestCase("ACategory", "A message")]
-    [TestCase("OtherCategory", "Other message")]
-    [TestCase("AnotherCategory", "Another message")]
-    public void LogMessagesWithCategory(string category, string message)
-    {
-        var logger = new Logger(_console, _dateTimeProvider, new Category(category),false);
-        
-        logger.LogInformation(message);
-        
-        _console.Received().WriteLine($"[2023-03-30T21:30:06 INF ({category})] {message}");
-    }
-
     [Test]
     public void LogAMessageAsJson()
     {
