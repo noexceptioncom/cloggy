@@ -8,6 +8,10 @@ public class LoggerShould
     private IConsole _console;
     private IDateTimeProvider _dateTimeProvider;
     private IFileWriter _fileWriter;
+    private Category _category;
+    private string _otroMensaje;
+    private string _expectedMessage;
+
 
     [SetUp]
     public void SetUp()
@@ -16,36 +20,39 @@ public class LoggerShould
         _console = Substitute.For<IConsole>();
         _fileWriter = Substitute.For<IFileWriter>();
         _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
+        _category = new Category("AnotherCategory");
+        _otroMensaje = "otro mensaje";
+        _expectedMessage = "[2023-03-30T21:30:06 INF (AnotherCategory)] otro mensaje";
     }
 
     [Test]
     public void LogAMessageAsPlainToConsole()
     {
-        var logger = new Logger(_console, _dateTimeProvider, new Category("AnotherCategory"), false, null);
+        var logger = new Logger(_console, _dateTimeProvider, _category, false, null);
 
-        logger.LogInformation("otro mensaje");
+        logger.LogInformation(_otroMensaje);
 
-        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (AnotherCategory)] otro mensaje");
+        _console.Received().WriteLine(_expectedMessage);
     }
 
     [Test]
     public void LogAMessageAsPlainTextToFile()
     {
-        var logger = new Logger(null, _dateTimeProvider, new Category("AnotherCategory"), false, _fileWriter);
+        var logger = new Logger(null, _dateTimeProvider, _category, false, _fileWriter);
 
-        logger.LogInformation("otro mensaje");
+        logger.LogInformation(_otroMensaje);
 
-        _fileWriter.Received().WriteLine("[2023-03-30T21:30:06 INF (AnotherCategory)] otro mensaje");
+        _fileWriter.Received().WriteLine(_expectedMessage);
     }
 
     [Test]
     public void LogAMessageAsPlainTextToFileAndConsole()
     {
-        var logger = new Logger(_console, _dateTimeProvider, new Category("AnotherCategory"), false, _fileWriter);
+        var logger = new Logger(_console, _dateTimeProvider, _category, false, _fileWriter);
 
-        logger.LogInformation("otro mensaje");
+        logger.LogInformation(_otroMensaje);
 
-        _fileWriter.Received().WriteLine("[2023-03-30T21:30:06 INF (AnotherCategory)] otro mensaje");
-        _console.Received().WriteLine("[2023-03-30T21:30:06 INF (AnotherCategory)] otro mensaje");
+        _fileWriter.Received().WriteLine(_expectedMessage);
+        _console.Received().WriteLine(_expectedMessage);
     }
 }
