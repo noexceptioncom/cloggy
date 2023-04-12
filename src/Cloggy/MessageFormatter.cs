@@ -21,7 +21,7 @@ public class MessageFormatter
         if (_asXml)
         {
             return
-                $$"""<log timestamp="2023-03-04T21:30:06" loglevel="{{message.LogLevel}}" category="{{message.Category}}" message="{{message.Text}}"></log>""";
+                $$"""<log timestamp="{{message.Timestamp}}" loglevel="{{message.LogLevel}}" category="{{message.Category}}" message="{{message.Text}}"></log>""";
         }
 
         return FormatMessageAsPlainText(message);
