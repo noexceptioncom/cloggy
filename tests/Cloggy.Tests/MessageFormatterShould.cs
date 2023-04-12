@@ -135,4 +135,15 @@ public class MessageFormatterShould
 
         result.Should().Be(expectedResult);
     }
+
+    [Test]
+    public void FormatAnotherCategoryAsXML()
+    {
+        var result = new MessageFormatter(false,true).FormatMessage(new Message("otro mensaje", LogLevel.INF,
+            DateTime.Parse("2023-03-04T21:30:06"), new Category("ACategory")));
+
+        var expectedResult = """<log timestamp="2023-03-04T21:30:06" loglevel="INF" category="ACategory" message="otro mensaje"></log>""";
+
+        result.Should().Be(expectedResult);
+    }
 }
