@@ -45,4 +45,14 @@ public class MessageFormatterShould
 
         result.Should().Be($"[2023-03-30T21:30:06 INF ({category})] {message}");
     }
+
+    [TestCase(LogLevel.INF, "[2023-03-30T21:30:06 INF (category)] hola mundo")]
+    [TestCase(LogLevel.WRN, "[2023-03-30T21:30:06 WRN (category)] hola mundo")]
+    [TestCase(LogLevel.ERR, "[2023-03-30T21:30:06 ERR (category)] hola mundo")]
+    public void FormatLogLevel(LogLevel logLevel, string expectedResult)
+    {
+        var result = _plainTextMessageFormatter.FormatMessage(new Message("hola mundo", logLevel, DateTime.Parse("2023-03-30T21:30:06"), new Category("category")));
+        
+        result.Should().Be(expectedResult);
+    }
 }
