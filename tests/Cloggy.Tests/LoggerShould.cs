@@ -8,7 +8,7 @@ namespace Cloggy.Tests
 {
     public class LoggerShould
     {
-        private IConsole _console;
+        private IOutput _output;
         private IDateTimeProvider _dateTimeProvider;
         private IFileWriter _fileWriter;
         private Category _category;
@@ -22,7 +22,7 @@ namespace Cloggy.Tests
         public void SetUp()
         {
             _dateTimeProvider = Substitute.For<IDateTimeProvider>();
-            _console = Substitute.For<IConsole>();
+            _output = Substitute.For<IOutput>();
             _memory = new Memory();
             _fileWriter = Substitute.For<IFileWriter>();
             _dateTimeProvider.Now().Returns(DateTime.Parse("2023-03-30T21:30:06"));
@@ -35,17 +35,17 @@ namespace Cloggy.Tests
         [Test]
         public void LogAMessageAsPlainToConsole()
         {
-            var logger = new Logger(_dateTimeProvider, _plainTextFormatStrategy, _category, null, _console, null);
+            var logger = new Logger(_dateTimeProvider, _plainTextFormatStrategy, _category, null, null, _output);
 
             logger.LogInformation(_otherMessage);
 
-            _console.Received().WriteLine(_expectedMessage);
+            _output.Received().WriteLine(_expectedMessage);
         }
 
         [Test]
         public void LogAMessageAsPlainTextToFile()
         {
-            var logger = new Logger(_dateTimeProvider, _plainTextFormatStrategy,_category, null, null, _fileWriter);
+            var logger = new Logger(_dateTimeProvider, _plainTextFormatStrategy,_category, null, _fileWriter);
 
             logger.LogInformation(_otherMessage);
 
@@ -55,18 +55,18 @@ namespace Cloggy.Tests
         [Test]
         public void LogAMessageAsPlainTextToFileAndConsole()
         {
-            var logger = new Logger(_dateTimeProvider, _plainTextFormatStrategy,_category, null, _console, _fileWriter);
+            var logger = new Logger(_dateTimeProvider, _plainTextFormatStrategy,_category, null, _fileWriter, _output);
 
             logger.LogInformation(_otherMessage);
 
             _fileWriter.Received().WriteLine(_expectedMessage);
-            _console.Received().WriteLine(_expectedMessage);
+            _output.Received().WriteLine(_expectedMessage);
         }
         
         [Test]
         public void SaveAMessageInMemory()
         {
-            var logger = new Logger(_dateTimeProvider, _plainTextFormatStrategy, _category, _memory, null, null);
+            var logger = new Logger(_dateTimeProvider, _plainTextFormatStrategy, _category, _memory, null);
             var expectedMessage = new Message(_otherMessage, LogLevel.WRN, DateTime.Parse("2023-03-30T21:30:06"),
                 _category);
             logger.LogWarning(_otherMessage);

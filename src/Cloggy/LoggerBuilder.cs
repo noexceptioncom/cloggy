@@ -8,7 +8,7 @@ public class LoggerBuilder
 {
     private readonly string _category;
     private IFormatStrategy _formatStrategy;
-    private IConsole? _systemConsole;
+    private IOutput? _systemConsole;
     private IFileWriter? _fileWriter;
     private Memory? _memory;
 
@@ -23,7 +23,7 @@ public class LoggerBuilder
 
     public Logger Build()
     {
-        return new Logger(new SystemDateProvider(), _formatStrategy, new Category(_category), _memory, _systemConsole, _fileWriter);
+        return new Logger(new SystemDateProvider(), _formatStrategy, new Category(_category), _memory, _fileWriter, _systemConsole);
     }
 
     public LoggerBuilder WithJsonFormat()

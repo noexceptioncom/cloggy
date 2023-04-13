@@ -1,6 +1,6 @@
 ﻿namespace Cloggy.Outputs;
 
-public interface IConsole
+public interface IOutput
 {
     void WriteLine(string message);
 }
