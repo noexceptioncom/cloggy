@@ -1,5 +1,4 @@
 ﻿using Cloggy.Formatters;
-using Cloggy.Outputs;
 using Cloggy.Providers;
 
 namespace Cloggy;
@@ -8,17 +7,16 @@ public class Logger
 {
     private readonly IDateTimeProvider _dateTimeProvider;
     private readonly Category _category;
-    private readonly IEnumerable<IOutput> _outputs;
     private readonly Memory? _memory;
     private readonly IFormatStrategy _formatStrategy;
+    private readonly OutputCollection _outputs;
 
     public Logger(IDateTimeProvider dateTimeProvider, IFormatStrategy formatStrategy,
-        Category category, Memory? memory = null,
-        params IOutput[] outputs)
+        Category category, Memory? memory, OutputCollection outputCollection)
     {
         _dateTimeProvider = dateTimeProvider;
         _category = category;
-        _outputs = outputs;
+        _outputs = outputCollection;
         _memory = memory;
         _formatStrategy = formatStrategy;
     }
@@ -27,10 +25,7 @@ public class Logger
     {
         var messageObject = new Message(message, logLevel, _dateTimeProvider.Now(), _category);
         var formattedMessage = _formatStrategy.FormatMessage(messageObject);
-        foreach (var output in _outputs)
-        {
-            output.WriteLine(formattedMessage);
-        }
+        _outputs.Write(formattedMessage);
         _memory?.AddMessage(messageObject);
     }
 

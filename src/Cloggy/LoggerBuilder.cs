@@ -21,7 +21,7 @@ public class LoggerBuilder
 
     public Logger Build()
     {
-        return new Logger(new SystemDateProvider(), _formatStrategy, new Category(_category), _memory, _outputs.ToArray());
+        return new Logger(new SystemDateProvider(), _formatStrategy, new Category(_category), _memory, new OutputCollection(_outputs.ToArray()));
     }
 
     public LoggerBuilder WithJsonFormat()
