@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Cloggy.Formatters;
+using FluentAssertions;
 
 namespace Cloggy.Tests;
 

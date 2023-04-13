@@ -1,3 +1,5 @@
+using Cloggy.Formatters;
+using Cloggy.Outputs;
 using FluentAssertions;
 using NSubstitute;
 

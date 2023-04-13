@@ -1,4 +1,4 @@
-﻿namespace Cloggy;
+﻿namespace Cloggy.Formatters;
 
 public interface IFormatStrategy
 {

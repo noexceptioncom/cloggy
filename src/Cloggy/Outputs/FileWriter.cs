@@ -1,4 +1,4 @@
-namespace Cloggy;
+namespace Cloggy.Outputs;
 
 public class FileWriter : IFileWriter
 {
@@ -11,7 +11,7 @@ public class FileWriter : IFileWriter
 
     public void WriteLine(string message)
     {
-        using var streamWriter = new StreamWriter(_filePath,true);
+        using var streamWriter = new StreamWriter(_filePath, true);
         streamWriter.WriteLine(message);
     }
 }

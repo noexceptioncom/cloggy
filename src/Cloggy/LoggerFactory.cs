@@ -1,3 +1,6 @@
+using Cloggy.Formatters;
+using Cloggy.Outputs;
+
 namespace Cloggy;
 
 public class LoggerFactory

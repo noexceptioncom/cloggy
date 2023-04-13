@@ -1,4 +1,4 @@
-﻿namespace Cloggy;
+﻿namespace Cloggy.Outputs;
 
 public class SystemConsole : IConsole
 {
