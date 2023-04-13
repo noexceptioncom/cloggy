@@ -22,6 +22,6 @@ public class MessageFormatter
 
     public string FormatMessage(Message message)
     {
-        return _formatStrategy.FormatMessageByStrategy(message);
+        return _formatStrategy.FormatMessage(message);
     }
 }
