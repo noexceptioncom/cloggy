@@ -1,5 +1,6 @@
 ﻿using Cloggy.Formatters;
 using Cloggy.Outputs;
+using Cloggy.Providers;
 
 namespace Cloggy;
 
