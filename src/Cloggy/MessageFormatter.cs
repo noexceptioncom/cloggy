@@ -2,7 +2,7 @@
 
 public class MessageFormatter
 {
-    private readonly FormatStrategy _formatStrategy;
+    private readonly IFormatStrategy _formatStrategy;
 
     public MessageFormatter(Format format)
     {
