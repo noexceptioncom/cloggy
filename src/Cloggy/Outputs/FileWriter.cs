@@ -1,6 +1,6 @@
 namespace Cloggy.Outputs;
 
-public class FileWriter : IFileWriter
+public class FileWriter : IOutput
 {
     private readonly string _filePath;
 

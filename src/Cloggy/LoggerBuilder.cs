@@ -8,22 +8,20 @@ public class LoggerBuilder
 {
     private readonly string _category;
     private IFormatStrategy _formatStrategy;
-    private IOutput? _systemConsole;
-    private IFileWriter? _fileWriter;
     private Memory? _memory;
+    private readonly List<IOutput> _outputs;
 
     public LoggerBuilder(string category)
     {
         _category = category;
-        _systemConsole = null;
-        _fileWriter = null;
         _memory = null;
         _formatStrategy = new PlainTextFormatStrategy();
+        _outputs = new List<IOutput>();
     }
 
     public Logger Build()
     {
-        return new Logger(new SystemDateProvider(), _formatStrategy, new Category(_category), _memory, _fileWriter, _systemConsole);
+        return new Logger(new SystemDateProvider(), _formatStrategy, new Category(_category), _memory, _outputs.ToArray());
     }
 
     public LoggerBuilder WithJsonFormat()
@@ -34,13 +32,13 @@ public class LoggerBuilder
 
     public LoggerBuilder ToConsole()
     {
-        _systemConsole = new SystemConsole();
+        _outputs.Add(new SystemConsole());
         return this;
     }
 
     public LoggerBuilder ToFile(string fullPath)
     {
-        _fileWriter = new FileWriter(fullPath);
+        _outputs.Add(new FileWriter(fullPath));
         return this;
     }
 

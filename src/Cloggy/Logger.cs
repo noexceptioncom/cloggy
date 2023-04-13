@@ -8,18 +8,16 @@ public class Logger
 {
     private readonly IDateTimeProvider _dateTimeProvider;
     private readonly Category _category;
-    private readonly IFileWriter? _fileWriter;
     private readonly IEnumerable<IOutput> _outputs;
     private readonly Memory? _memory;
     private readonly IFormatStrategy _formatStrategy;
 
     public Logger(IDateTimeProvider dateTimeProvider, IFormatStrategy formatStrategy,
-        Category category, Memory? memory = null, IFileWriter? fileWriter = null,
+        Category category, Memory? memory = null,
         params IOutput[] outputs)
     {
         _dateTimeProvider = dateTimeProvider;
         _category = category;
-        _fileWriter = fileWriter;
         _outputs = outputs;
         _memory = memory;
         _formatStrategy = formatStrategy;
@@ -29,7 +27,6 @@ public class Logger
     {
         var messageObject = new Message(message, logLevel, _dateTimeProvider.Now(), _category);
         var formattedMessage = _formatStrategy.FormatMessage(messageObject);
-        _fileWriter?.WriteLine(formattedMessage);
         foreach (var output in _outputs)
         {
             output.WriteLine(formattedMessage);
