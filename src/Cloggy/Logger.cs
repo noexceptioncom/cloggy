@@ -7,9 +7,9 @@ public class Logger
     private readonly Category _category;
     private readonly IFileWriter? _fileWriter;
     private readonly Memory? _memory;
-    private readonly MessageFormatter _messageFormatter;
+    private readonly IFormatStrategy _formatStrategy;
 
-    public Logger(IConsole? console, IDateTimeProvider dateTimeProvider, Category category, Format format,
+    public Logger(IConsole? console, IDateTimeProvider dateTimeProvider, Category category, IFormatStrategy formatStrategy = null,
         IFileWriter? fileWriter = null, Memory? memory = null)
     {
         _console = console;
@@ -17,13 +17,13 @@ public class Logger
         _category = category;
         _fileWriter = fileWriter;
         _memory = memory;
-        _messageFormatter = new MessageFormatter(format);
+        _formatStrategy = formatStrategy;
     }
 
     private void Log(string? message, LogLevel logLevel)
     {
         var messageObject = new Message(message, logLevel, _dateTimeProvider.Now(), _category);
-        var formattedMessage = _messageFormatter.FormatMessage(messageObject);
+        var formattedMessage = _formatStrategy.FormatMessage(messageObject);
         _fileWriter?.WriteLine(formattedMessage);
         _console?.WriteLine(formattedMessage);
         _memory?.AddMessage(messageObject);

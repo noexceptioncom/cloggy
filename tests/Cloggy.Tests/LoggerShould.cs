@@ -12,6 +12,7 @@ namespace Cloggy.Tests
         private string _otroMensaje;
         private string _expectedMessage;
         private Memory _memory;
+        private PlainTextFormatStrategy _plainTextFormatStrategy;
 
 
         [SetUp]
@@ -25,12 +26,13 @@ namespace Cloggy.Tests
             _category = new Category("AnotherCategory");
             _otroMensaje = "otro mensaje";
             _expectedMessage = "[2023-03-30T21:30:06 INF (AnotherCategory)] otro mensaje";
+            _plainTextFormatStrategy = new PlainTextFormatStrategy();
         }
 
         [Test]
         public void LogAMessageAsPlainToConsole()
         {
-            var logger = new Logger(_console, _dateTimeProvider, _category, Format.PlainText, null, null);
+            var logger = new Logger(_console, _dateTimeProvider, _category, _plainTextFormatStrategy, null, null);
 
             logger.LogInformation(_otroMensaje);
 
@@ -40,7 +42,7 @@ namespace Cloggy.Tests
         [Test]
         public void LogAMessageAsPlainTextToFile()
         {
-            var logger = new Logger(null, _dateTimeProvider, _category, Format.PlainText, _fileWriter,null);
+            var logger = new Logger(null, _dateTimeProvider, _category, _plainTextFormatStrategy, _fileWriter,null);
 
             logger.LogInformation(_otroMensaje);
 
@@ -50,7 +52,7 @@ namespace Cloggy.Tests
         [Test]
         public void LogAMessageAsPlainTextToFileAndConsole()
         {
-            var logger = new Logger(_console, _dateTimeProvider, _category, Format.PlainText, _fileWriter,null);
+            var logger = new Logger(_console, _dateTimeProvider, _category, _plainTextFormatStrategy, _fileWriter,null);
 
             logger.LogInformation(_otroMensaje);
 
@@ -61,7 +63,7 @@ namespace Cloggy.Tests
         [Test]
         public void SaveAMessageInMemory()
         {
-            var logger = new Logger(null, _dateTimeProvider, _category, Format.PlainText, null, _memory);
+            var logger = new Logger(null, _dateTimeProvider, _category, _plainTextFormatStrategy, null, _memory);
             var expectedMessage = new Message("other message", LogLevel.WRN, DateTime.Parse("2023-03-30T21:30:06"),
                 _category);
             logger.LogWarning("other message");
