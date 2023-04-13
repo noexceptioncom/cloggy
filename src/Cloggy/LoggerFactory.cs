@@ -8,7 +8,7 @@ public class LoggerFactory
 {
     public static Logger CreateJsonLoggerToConsole(string category)
     {
-        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), new JsonFormatStrategy());
+        return new LoggerBuilder(category).Build();
     }
 
     public static Logger CreatePlainTextLoggerToConsole(string category)
