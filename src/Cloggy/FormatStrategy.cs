@@ -1,44 +1,52 @@
 ﻿namespace Cloggy;
 
-public class FormatStrategy
+public abstract class FormatStrategy
 {
-    private MessageFormatter _messageFormatter;
+    private Format _format;
 
-    public FormatStrategy(MessageFormatter messageFormatter)
+    protected FormatStrategy(Format format)
     {
-        _messageFormatter = messageFormatter;
+        _format = format;
     }
 
-    public string FormatMessageByStrategy(Message message)
+    public abstract string FormatMessageByStrategy(Message message);
+}
+
+public class PlainTextFormatStrategy : FormatStrategy
+{
+    public PlainTextFormatStrategy() : base(Format.PlainText)
     {
-        if (_messageFormatter.Format == Format.Json)
-        {
-            return FormatMessageAsJson(message);
-        }
-
-        if (_messageFormatter.Format == Format.Xml)
-        {
-            return FormatMessageAsXML(message);
-        }
-
-        return FormatMessageAsPlainText(message);
     }
 
-    private static string FormatMessageAsXML(Message message)
-    {
-        return
-            $$"""<log timestamp="{{message.Timestamp}}" loglevel="{{message.LogLevel}}" category="{{message.Category}}" message="{{message.Text}}"></log>""";
-    }
-
-    private string FormatMessageAsPlainText(Message message)
+    public override string FormatMessageByStrategy(Message message)
     {
         var header = string.Join(' ', message.Timestamp, message.LogLevel, $"({message.Category})").Trim();
         return $"[{header}] {message.Text}";
     }
+}
 
-    private string FormatMessageAsJson(Message message)
+public class JsonFormatStrategy : FormatStrategy
+{
+    public JsonFormatStrategy() : base(Format.Json)
+    {
+    }
+
+    public override string FormatMessageByStrategy(Message message)
     {
         return
             $$"""{"timestamp":"{{message.Timestamp}}","logLevel":"{{message.LogLevel}}","category":"{{message.Category}}","message":"{{message.Text}}"}""";
+    }
+}
+
+public class XmlFormatStrategy : FormatStrategy
+{
+    public XmlFormatStrategy() : base(Format.Xml)
+    {
+    }
+
+    public override string FormatMessageByStrategy(Message message)
+    {
+        return
+            $$"""<log timestamp="{{message.Timestamp}}" loglevel="{{message.LogLevel}}" category="{{message.Category}}" message="{{message.Text}}"></log>""";
     }
 }

@@ -2,18 +2,22 @@
 
 public class MessageFormatter
 {
-    private readonly Format _format;
     private readonly FormatStrategy _formatStrategy;
 
     public MessageFormatter(Format format)
     {
-        _format = format;
-        _formatStrategy = new FormatStrategy(this);
-    }
-
-    public Format Format
-    {
-        get { return _format; }
+        if (format == Format.Json)
+        {
+            _formatStrategy = new JsonFormatStrategy();
+        }
+        else if(format == Format.Xml)
+        {
+            _formatStrategy = new XmlFormatStrategy();
+        }
+        else
+        {
+            _formatStrategy = new PlainTextFormatStrategy();
+        }
     }
 
     public string FormatMessage(Message message)
