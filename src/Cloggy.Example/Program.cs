@@ -36,3 +36,7 @@ plainTextLoggerInMemory.LogInformation("Log Info in Memory second Line");
 var xmlLoggerToFile = LoggerFactory.CreateXmlLoggerToFile(category, @".\xmlLogger.xml");
 xmlLoggerToFile.LogInformation("Log XML Info to File");
 xmlLoggerToFile.LogInformation("Log XML Info to File second line");
+
+var xmlLoggerToFileAndConsole = LoggerFactory.CreateXmlLoggerToFileAndConsole(category, @".\xmlLogger.xml");
+xmlLoggerToFileAndConsole.LogInformation("Log XML Info to File");
+xmlLoggerToFileAndConsole.LogInformation("Log XML Info to File second line");
