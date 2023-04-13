@@ -8,18 +8,17 @@ public class LoggerFactory
 {
     public static Logger CreateJsonLoggerToConsole(string category)
     {
-        return new LoggerBuilder(category).Build();
+        return new LoggerBuilder(category).WithJsonFormat().ToConsole().Build();
     }
 
     public static Logger CreatePlainTextLoggerToConsole(string category)
     {
-        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), new PlainTextFormatStrategy());
+        return new LoggerBuilder(category).ToConsole().Build();
     }
 
     public static Logger CreateJsonLoggerToFile(string category, string fullPath)
     {
-        return new Logger(null, new SystemDateProvider(), new Category(category), new JsonFormatStrategy(),
-            new FileWriter(fullPath));
+        return new LoggerBuilder(category).WithJsonFormat().ToFile(fullPath).Build();
     }
 
     public static Logger CreatePlainTextLoggerToFile(string category, string fullPath)
