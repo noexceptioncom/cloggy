@@ -48,7 +48,6 @@ public class LoggerFactory
 
     public static Logger CreateXmlLoggerToFileAndConsole(string category, string fullPath)
     {
-        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), new XmlFormatStrategy(),
-            new FileWriter(fullPath));
+        return new LoggerBuilder(category).WithXmlFormat().ToFile(fullPath).ToConsole().Build();
     }
 }
