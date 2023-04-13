@@ -35,7 +35,7 @@ namespace Cloggy.Tests
         [Test]
         public void LogAMessageAsPlainToConsole()
         {
-            var logger = new Logger(_console, _dateTimeProvider, _category, _plainTextFormatStrategy, null, null);
+            var logger = new Logger(_dateTimeProvider, _category, _plainTextFormatStrategy, null, _console, null);
 
             logger.LogInformation(_otroMensaje);
 
@@ -45,7 +45,7 @@ namespace Cloggy.Tests
         [Test]
         public void LogAMessageAsPlainTextToFile()
         {
-            var logger = new Logger(null, _dateTimeProvider, _category, _plainTextFormatStrategy, _fileWriter,null);
+            var logger = new Logger(_dateTimeProvider, _category, _plainTextFormatStrategy,null, null, _fileWriter);
 
             logger.LogInformation(_otroMensaje);
 
@@ -55,7 +55,7 @@ namespace Cloggy.Tests
         [Test]
         public void LogAMessageAsPlainTextToFileAndConsole()
         {
-            var logger = new Logger(_console, _dateTimeProvider, _category, _plainTextFormatStrategy, _fileWriter,null);
+            var logger = new Logger(_dateTimeProvider, _category, _plainTextFormatStrategy,null, _console, _fileWriter);
 
             logger.LogInformation(_otroMensaje);
 
@@ -66,7 +66,7 @@ namespace Cloggy.Tests
         [Test]
         public void SaveAMessageInMemory()
         {
-            var logger = new Logger(null, _dateTimeProvider, _category, _plainTextFormatStrategy, null, _memory);
+            var logger = new Logger(_dateTimeProvider, _category, _plainTextFormatStrategy, _memory, null, null);
             var expectedMessage = new Message("other message", LogLevel.WRN, DateTime.Parse("2023-03-30T21:30:06"),
                 _category);
             logger.LogWarning("other message");

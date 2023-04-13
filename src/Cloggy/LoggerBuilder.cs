@@ -23,7 +23,7 @@ public class LoggerBuilder
 
     public Logger Build()
     {
-        return new Logger(_systemConsole, new SystemDateProvider(), new Category(_category), _formatStrategy, _fileWriter, _memory);
+        return new Logger(new SystemDateProvider(), _formatStrategy, new Category(_category), _memory, _systemConsole, _fileWriter);
     }
 
     public LoggerBuilder WithJsonFormat()
