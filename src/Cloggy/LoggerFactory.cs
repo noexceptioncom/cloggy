@@ -38,8 +38,7 @@ public class LoggerFactory
     
     public static Logger CreateLoggerInMemory(string category)
     {
-        return new Logger(null, new SystemDateProvider(), new Category(category), new PlainTextFormatStrategy(),
-            null, new Memory());
+        return new LoggerBuilder(category).ToMemory().Build();
     }
 
     public static Logger CreateXmlLoggerToFile(string category, string fullPath)

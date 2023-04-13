@@ -10,18 +10,20 @@ public class LoggerBuilder
     private IFormatStrategy _formatStrategy;
     private IConsole? _systemConsole;
     private IFileWriter? _fileWriter;
+    private Memory? _memory;
 
     public LoggerBuilder(string category)
     {
         _category = category;
         _systemConsole = null;
         _fileWriter = null;
+        _memory = null;
         _formatStrategy = new PlainTextFormatStrategy();
     }
 
     public Logger Build()
     {
-        return new Logger(_systemConsole, new SystemDateProvider(), new Category(_category), _formatStrategy, _fileWriter);
+        return new Logger(_systemConsole, new SystemDateProvider(), new Category(_category), _formatStrategy, _fileWriter, _memory);
     }
 
     public LoggerBuilder WithJsonFormat()
@@ -39,6 +41,12 @@ public class LoggerBuilder
     public LoggerBuilder ToFile(string fullPath)
     {
         _fileWriter = new FileWriter(fullPath);
+        return this;
+    }
+
+    public LoggerBuilder ToMemory()
+    {
+        _memory = new Memory();
         return this;
     }
 }
