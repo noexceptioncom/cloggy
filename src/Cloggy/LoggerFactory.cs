@@ -28,14 +28,12 @@ public class LoggerFactory
 
     public static Logger CreateJsonLoggerToFileAndConsole(string category, string fullPath)
     {
-        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), new JsonFormatStrategy(),
-            new FileWriter(fullPath));
+        return new LoggerBuilder(category).WithJsonFormat().ToFile(fullPath).ToConsole().Build();
     }
 
     public static Logger CreatePlainTextLoggerToFileAndConsole(string category, string fullPath)
     {
-        return new Logger(new SystemConsole(), new SystemDateProvider(), new Category(category), new PlainTextFormatStrategy(),
-            new FileWriter(fullPath));
+        return new LoggerBuilder(category).ToFile(fullPath).ToConsole().Build();
     }
     
     public static Logger CreateLoggerInMemory(string category)
