@@ -8,12 +8,14 @@ public class LoggerBuilder
 {
     private readonly string _category;
     private IFormatStrategy _formatStrategy;
-    private IConsole _systemConsole;
-    private IFileWriter _fileWriter;
+    private IConsole? _systemConsole;
+    private IFileWriter? _fileWriter;
 
     public LoggerBuilder(string category)
     {
         _category = category;
+        _systemConsole = null;
+        _fileWriter = null;
         _formatStrategy = new PlainTextFormatStrategy();
     }
 

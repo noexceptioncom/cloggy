@@ -13,7 +13,7 @@ public class Logger
     private readonly Memory? _memory;
     private readonly IFormatStrategy _formatStrategy;
 
-    public Logger(IConsole? console, IDateTimeProvider dateTimeProvider, Category category, IFormatStrategy formatStrategy = null,
+    public Logger(IConsole? console, IDateTimeProvider dateTimeProvider, Category category, IFormatStrategy formatStrategy,
         IFileWriter? fileWriter = null, Memory? memory = null)
     {
         _console = console;

@@ -23,8 +23,7 @@ public class LoggerFactory
 
     public static Logger CreatePlainTextLoggerToFile(string category, string fullPath)
     {
-        return new Logger(null, new SystemDateProvider(), new Category(category), new PlainTextFormatStrategy(),
-            new FileWriter(fullPath));
+        return new LoggerBuilder(category).ToFile(fullPath).Build();
     }
 
     public static Logger CreateJsonLoggerToFileAndConsole(string category, string fullPath)
