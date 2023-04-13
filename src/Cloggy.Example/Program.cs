@@ -32,3 +32,7 @@ jsonLoggerToFileAndConsole.LogInformation("Log Json Info to File and Console sec
 var plainTextLoggerInMemory = LoggerFactory.CreateLoggerInMemory(category);
 plainTextLoggerInMemory.LogInformation("Log Info in Memory");
 plainTextLoggerInMemory.LogInformation("Log Info in Memory second Line");
+
+var xmlLoggerToFile = LoggerFactory.CreateXmlLoggerToFile(category, @".\xmlLogger.xml");
+xmlLoggerToFile.LogInformation("Log XML Info to File");
+xmlLoggerToFile.LogInformation("Log XML Info to File second line");

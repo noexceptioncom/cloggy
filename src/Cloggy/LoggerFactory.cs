@@ -45,4 +45,10 @@ public class LoggerFactory
         return new Logger(null, new SystemDateProvider(), new Category(category), new PlainTextFormatStrategy(),
             null, new Memory());
     }
+
+    public static Logger CreateXmlLoggerToFile(string category, string fullPath)
+    {
+        return new Logger(null, new SystemDateProvider(), new Category(category), new XmlFormatStrategy(),
+            new FileWriter(fullPath));
+    }
 }
