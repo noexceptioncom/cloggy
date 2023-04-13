@@ -49,4 +49,10 @@ public class LoggerBuilder
         _memory = new Memory();
         return this;
     }
+
+    public LoggerBuilder WithXmlFormat()
+    {
+        _formatStrategy = new XmlFormatStrategy();
+        return this;
+    }
 }
