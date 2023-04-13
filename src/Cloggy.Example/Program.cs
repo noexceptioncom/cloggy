@@ -17,7 +17,7 @@ var plainTextLoggerToFile = LoggerFactory.CreatePlainTextLoggerToFile(category, 
 plainTextLoggerToFile.LogInformation("Log Info to File");
 plainTextLoggerToFile.LogInformation("Log Info to File second line");
 
-var jsonLoggerToFile= LoggerFactory.CreateJsonLoggerToFile(category, @".\plainTextLogger.json");
+var jsonLoggerToFile= LoggerFactory.CreateJsonLoggerToFile(category, @".\jsonLogger.json");
 jsonLoggerToFile.LogInformation("Log Json Info to File");
 jsonLoggerToFile.LogInformation("Log Json Info to File second line");
 
@@ -25,7 +25,7 @@ var plainTextLoggerToFileAndConsole = LoggerFactory.CreatePlainTextLoggerToFileA
 plainTextLoggerToFileAndConsole.LogInformation("Log Info to File and Console");
 plainTextLoggerToFileAndConsole.LogInformation("Log Info to File and Console second line");
 
-var jsonLoggerToFileAndConsole = LoggerFactory.CreateJsonLoggerToFileAndConsole(category, @".\plainTextLogger.json");
+var jsonLoggerToFileAndConsole = LoggerFactory.CreateJsonLoggerToFileAndConsole(category, @".\jsonLogger.json");
 jsonLoggerToFileAndConsole.LogInformation("Log Json Info to File and Console");
 jsonLoggerToFileAndConsole.LogInformation("Log Json Info to File and Console second line");
 
@@ -38,5 +38,5 @@ xmlLoggerToFile.LogInformation("Log XML Info to File");
 xmlLoggerToFile.LogInformation("Log XML Info to File second line");
 
 var xmlLoggerToFileAndConsole = LoggerFactory.CreateXmlLoggerToFileAndConsole(category, @".\xmlLogger.xml");
-xmlLoggerToFileAndConsole.LogInformation("Log XML Info to File");
-xmlLoggerToFileAndConsole.LogInformation("Log XML Info to File second line");
+xmlLoggerToFileAndConsole.LogInformation("Log XML Info to File and Console");
+xmlLoggerToFileAndConsole.LogInformation("Log XML Info to File second line and Console");
