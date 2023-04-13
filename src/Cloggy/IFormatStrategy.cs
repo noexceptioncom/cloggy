@@ -2,5 +2,5 @@
 
 public interface IFormatStrategy
 {
-    public string FormatMessageByStrategy(Message message);
+    public string FormatMessage(Message message);
 }
